@@ -1,0 +1,4 @@
+/home/ing_michi/Documents/Vision del computador/Proyecto Integrador Michael Lata/cpp/build/CMakeFiles/stereo_measure.dir
+/home/ing_michi/Documents/Vision del computador/Proyecto Integrador Michael Lata/cpp/build/CMakeFiles/stereo_calibrate.dir
+/home/ing_michi/Documents/Vision del computador/Proyecto Integrador Michael Lata/cpp/build/CMakeFiles/edit_cache.dir
+/home/ing_michi/Documents/Vision del computador/Proyecto Integrador Michael Lata/cpp/build/CMakeFiles/rebuild_cache.dir

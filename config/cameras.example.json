@@ -1,0 +1,20 @@
+{
+  "cameras": [
+    {
+      "name": "esp32cam_1",
+      "base_url": "http://192.168.1.120",
+      "stream_path": "/stream",
+      "snapshot_path": "/capture"
+    },
+    {
+      "name": "esp32cam_2",
+      "base_url": "http://192.168.1.121",
+      "stream_path": "/stream",
+      "snapshot_path": "/capture"
+    }
+  ],
+  "network": {
+    "wifi_ssid": "REEMPLAZAR_SSID",
+    "notes": "PC y ESP32 deben estar en la misma red para pruebas locales"
+  }
+}

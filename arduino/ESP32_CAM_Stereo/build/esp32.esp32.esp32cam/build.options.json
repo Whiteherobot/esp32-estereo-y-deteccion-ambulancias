@@ -1,0 +1,9 @@
+{
+  "additionalFiles": "",
+  "compiler.optimization_flags": "-Os",
+  "customBuildProperties": "",
+  "fqbn": "esp32:esp32:esp32cam",
+  "hardwareFolders": "/home/ing_michi/.arduino15/packages/esp32/hardware/esp32/3.3.8,/home/ing_michi/.arduino15/packages/esp32/hardware/esp32/3.3.8",
+  "otherLibrariesFolders": "/home/ing_michi/Arduino/libraries",
+  "sketchLocation": "/home/ing_michi/Documents/Vision del computador/Proyecto Integrador Michael Lata/arduino/ESP32_CAM_Stereo"
+}

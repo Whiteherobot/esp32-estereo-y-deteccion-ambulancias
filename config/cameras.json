@@ -1,0 +1,20 @@
+{
+  "cameras": [
+    {
+      "name": "esp32cam_1",
+      "base_url": "http://172.20.10.2",
+      "stream_path": "/stream",
+      "snapshot_path": "/capture"
+    },
+    {
+      "name": "esp32cam_2",
+      "base_url": "http://172.20.10.3",
+      "stream_path": "/stream",
+      "snapshot_path": "/capture"
+    }
+  ],
+  "network": {
+    "wifi_ssid": "Michi",
+    "notes": "PC y ESP32 deben estar en la misma red para pruebas locales. Red actual: Michi (172.20.10.x)"
+  }
+}

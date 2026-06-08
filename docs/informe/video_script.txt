@@ -1,0 +1,177 @@
+================================================================================
+  VIDEO SCRIPT — Stereo Vision & AR System with ESP32-CAM
+  Integrative Project Part I · Artificial Vision G8
+  Author: Michael Lata · Universidad Politécnica Salesiana
+  Language: English | Estimated duration: 4–5 minutes
+================================================================================
+
+--------------------------------------------------------------------------------
+[INTRO — 0:00 to 0:30]
+--------------------------------------------------------------------------------
+
+[CAMERA: Show the two ESP32-CAM modules mounted on the rig]
+
+"Hello, my name is Michael Lata, and this is my integrative project for
+Artificial Vision at Universidad Politécnica Salesiana.
+
+The goal of this project is to build a real-time stereo depth estimation system
+using two low-cost ESP32-CAM microcontrollers, and to overlay a dynamic
+Augmented Reality effect that reacts to the measured distance.
+
+Everything runs on a desktop application written in C++ with OpenCV, following
+a Model-View-Controller architecture."
+
+--------------------------------------------------------------------------------
+[PART 1: HARDWARE — 0:30 to 1:00]
+--------------------------------------------------------------------------------
+
+[CAMERA: Close-up of the two ESP32-CAM modules, show the rig from the front]
+
+"The hardware consists of two ESP32-CAM AI Thinker modules. Each one has an
+OV2640 image sensor and connects to my laptop over a 2.4 GHz WiFi network.
+
+To guarantee stable image quality, I tuned the firmware on both cameras:
+- The external clock was reduced to 6 MHz to minimize network jitter.
+- Automatic exposure, gain, and white balance were enabled, because disabling
+  them caused chronically dark frames in indoor conditions.
+- The resolution is set to QVGA — 320 by 240 pixels — so the JPEG fits in a
+  single TCP packet, which further reduces timing inconsistencies.
+
+The physical baseline between the two optical centers is 66.8 millimeters,
+which was measured and confirmed through stereo calibration."
+
+--------------------------------------------------------------------------------
+[PART 2: CALIBRATION — 1:00 to 1:40]
+--------------------------------------------------------------------------------
+
+[SCREEN: Show the calibration chessboard images in the data/calib_filtered folder]
+
+"Before computing any depth, the system needs to know the exact position and
+orientation of both cameras relative to each other.
+
+I captured 50 synchronized image pairs of a 9-by-6 chessboard with 27-millimeter
+squares. Using OpenCV's stereoCalibrate function, the system recovered the
+intrinsic parameters of each camera and the rotation and translation between them.
+
+The result was a reprojection RMS error of 0.459 pixels — well below the 1-pixel
+threshold considered acceptable for stereo matching.
+
+The calibration also produces the perspective matrix Q, which is the key to
+converting disparity values into real metric depth in centimeters."
+
+--------------------------------------------------------------------------------
+[PART 3: SOFTWARE PIPELINE — 1:40 to 2:50]
+--------------------------------------------------------------------------------
+
+[SCREEN: Show the running application — rectified image + disparity map windows]
+
+"Once the cameras are calibrated, the processing pipeline runs in real time.
+
+STEP 1 — CONCURRENT CAPTURE.
+Each camera runs in its own background thread using libcurl to continuously
+fetch JPEG snapshots from the HTTP endpoint. This producer-consumer design
+decouples network latency from the main processing loop.
+
+STEP 2 — RECTIFICATION.
+The raw frames are undistorted and aligned using the calibration maps, so that
+corresponding points in both images lie on the same horizontal scanline.
+
+STEP 3 — CLAHE PREPROCESSING.
+Before computing disparity, I apply Contrast Limited Adaptive Histogram
+Equalization to both grayscale images. This reduces the luminance difference
+caused by the independent auto-exposure controllers, and enhances local texture
+in flat areas so that the matching algorithm has more features to work with.
+
+STEP 4 — SGBM DISPARITY.
+The Semi-Global Block Matching algorithm computes a dense disparity map.
+It minimizes an energy function that balances pixel-level matching cost against
+smoothness penalties at depth discontinuities.
+Parameters: 128 disparities, block size 5, three-way path aggregation.
+
+STEP 5 — WLS FILTERING.
+The raw disparity map contains holes and ghosting around object edges.
+The Weighted Least Squares filter uses the color image as a guide to fill
+holes and sharpen depth boundaries.
+
+STEP 6 — 3D REPROJECTION.
+Using the Q matrix from calibration, every pixel with a valid disparity is
+projected into 3D space. The depth Z of the central object is extracted as
+the median of a 25-by-25 pixel patch at the crosshair."
+
+--------------------------------------------------------------------------------
+[PART 4: KALMAN FILTER — 2:50 to 3:20]
+--------------------------------------------------------------------------------
+
+[SCREEN: Show the HUD — Z_raw flickering vs Z_Kalman stable]
+
+"Even with good calibration and WLS filtering, the raw depth reading oscillates
+frame to frame due to sensor noise and JPEG compression artifacts.
+
+To stabilize the measurement, I implemented a scalar 1D Kalman filter.
+The filter has two parameters:
+- Process noise q = 0.001: how much the true depth is expected to change.
+- Measurement noise r = 0.01: how much we trust each individual reading.
+
+At steady state, the Kalman gain converges to about 9%, meaning the filter
+weights the new reading at 9% and the previous estimate at 91%.
+This keeps the display stable within plus or minus 2.5 centimeters
+in a static scene, meeting the rubric requirement of plus or minus 3 centimeters."
+
+--------------------------------------------------------------------------------
+[PART 5: AR EFFECT — 3:20 to 4:00]
+--------------------------------------------------------------------------------
+
+[SCREEN: Show the rectified image with the AR effect running — move an object
+         closer and farther to show the vignette and aura changing]
+
+"The final layer is the Augmented Reality effect, which is composed of two parts.
+
+The first part is a chromatic vignette, implemented by directly iterating over
+every pixel in the frame and modifying its BGR values using pointer arithmetic.
+The tint color changes based on depth:
+- Red for objects closer than 50 centimeters — a proximity alert.
+- Green for the 50 to 150 centimeter range — the optimal measurement zone.
+- Cyan-blue for objects beyond 150 centimeters.
+
+The second part is a pulsating energy aura centered on the measurement point.
+Its radius is inversely proportional to the depth — the closer the object,
+the larger and more opaque the aura. It pulses at 6 Hz using a sine wave,
+and orbital spark dots rotate around it at one revolution per second.
+
+Both effects react to the Kalman-filtered depth, not the raw value,
+so the visual feedback is smooth and never flickers."
+
+--------------------------------------------------------------------------------
+[OUTRO — 4:00 to 4:30]
+--------------------------------------------------------------------------------
+
+[CAMERA: Wide shot of the full setup — laptop screen showing the live system,
+         ESP32-CAM rig in the foreground]
+
+"To summarize: this system takes two 10-dollar microcontrollers, streams their
+images over WiFi, and produces a real-time metric depth estimate with a dynamic
+AR overlay — all running at around 7 frames per second on a standard laptop.
+
+The complete pipeline goes from raw sensor output, through calibration,
+preprocessing, disparity estimation, 3D reprojection, and Kalman filtering,
+all the way to pixel-level augmented reality rendering.
+
+The code follows a clean MVC architecture in C++17 and is available in the
+project repository.
+
+Thank you for watching."
+
+================================================================================
+  RECORDING TIPS
+================================================================================
+
+- Record at 1080p or higher.
+- For the demo sections, use OBS or a screen capture tool showing:
+    Window 1: "Camara Izquierda (Rectificada)" with AR effect + HUD
+    Window 2: "Mapa de Disparidad"
+- When showing depth measurements, hold an object at exactly 30, 60, and 90 cm
+  and let the camera stabilize for a few seconds at each distance.
+- Speak clearly and at a moderate pace — aim for ~130 words per minute.
+- Estimated total word count of script: ~780 words → ~5 minutes at natural pace.
+
+================================================================================

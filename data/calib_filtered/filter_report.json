@@ -1,0 +1,740 @@
+{
+  "total_common_pairs": 73,
+  "valid_pairs": 50,
+  "params": {
+    "board_size": [
+      9,
+      6
+    ],
+    "min_sharpness": 80.0,
+    "min_area_ratio": 0.06
+  },
+  "results": [
+    {
+      "file": "20260419_191146_799897.jpg",
+      "status": "valid",
+      "sharpL": 149.68,
+      "sharpR": 190.27,
+      "areaL": 0.35690000653266907,
+      "areaR": 0.3596000075340271,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191147_404366.jpg",
+      "status": "valid",
+      "sharpL": 148.7,
+      "sharpR": 186.25,
+      "areaL": 0.35690000653266907,
+      "areaR": 0.3596000075340271,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191147_646287.jpg",
+      "status": "valid",
+      "sharpL": 150.38,
+      "sharpR": 193.1,
+      "areaL": 0.35690000653266907,
+      "areaR": 0.3596000075340271,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191147_892734.jpg",
+      "status": "valid",
+      "sharpL": 148.96,
+      "sharpR": 189.69,
+      "areaL": 0.3571000099182129,
+      "areaR": 0.3598000109195709,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191148_105408.jpg",
+      "status": "valid",
+      "sharpL": 146.26,
+      "sharpR": 184.21,
+      "areaL": 0.35690000653266907,
+      "areaR": 0.35989999771118164,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191148_303393.jpg",
+      "status": "valid",
+      "sharpL": 146.63,
+      "sharpR": 187.46,
+      "areaL": 0.3571999967098236,
+      "areaR": 0.3598000109195709,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191148_498194.jpg",
+      "status": "valid",
+      "sharpL": 149.44,
+      "sharpR": 191.33,
+      "areaL": 0.35679998993873596,
+      "areaR": 0.35989999771118164,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191148_732179.jpg",
+      "status": "valid",
+      "sharpL": 149.2,
+      "sharpR": 190.24,
+      "areaL": 0.35679998993873596,
+      "areaR": 0.3596000075340271,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191148_928708.jpg",
+      "status": "valid",
+      "sharpL": 148.86,
+      "sharpR": 193.18,
+      "areaL": 0.35679998993873596,
+      "areaR": 0.3594000041484833,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191149_137647.jpg",
+      "status": "valid",
+      "sharpL": 147.32,
+      "sharpR": 189.31,
+      "areaL": 0.35690000653266907,
+      "areaR": 0.3598000109195709,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191149_422015.jpg",
+      "status": "valid",
+      "sharpL": 149.54,
+      "sharpR": 187.08,
+      "areaL": 0.35690000653266907,
+      "areaR": 0.3598000109195709,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191149_596570.jpg",
+      "status": "valid",
+      "sharpL": 148.04,
+      "sharpR": 190.16,
+      "areaL": 0.3571000099182129,
+      "areaR": 0.36010000109672546,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191149_860429.jpg",
+      "status": "valid",
+      "sharpL": 147.2,
+      "sharpR": 192.32,
+      "areaL": 0.35670000314712524,
+      "areaR": 0.3596000075340271,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191150_047132.jpg",
+      "status": "valid",
+      "sharpL": 150.12,
+      "sharpR": 191.78,
+      "areaL": 0.3571000099182129,
+      "areaR": 0.3596000075340271,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191150_290887.jpg",
+      "status": "valid",
+      "sharpL": 151.34,
+      "sharpR": 191.07,
+      "areaL": 0.3573000133037567,
+      "areaR": 0.35989999771118164,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191150_862017.jpg",
+      "status": "valid",
+      "sharpL": 149.51,
+      "sharpR": 190.71,
+      "areaL": 0.3571000099182129,
+      "areaR": 0.3596999943256378,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191151_261612.jpg",
+      "status": "valid",
+      "sharpL": 150.08,
+      "sharpR": 187.59,
+      "areaL": 0.3569999933242798,
+      "areaR": 0.3596000075340271,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191151_626132.jpg",
+      "status": "valid",
+      "sharpL": 148.17,
+      "sharpR": 187.86,
+      "areaL": 0.3571999967098236,
+      "areaR": 0.35989999771118164,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191201_449346.jpg",
+      "status": "valid",
+      "sharpL": 163.4,
+      "sharpR": 197.09,
+      "areaL": 0.11659999936819077,
+      "areaR": 0.11640000343322754,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191201_695546.jpg",
+      "status": "valid",
+      "sharpL": 172.0,
+      "sharpR": 199.29,
+      "areaL": 0.11699999868869781,
+      "areaR": 0.1168999969959259,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191201_975136.jpg",
+      "status": "valid",
+      "sharpL": 152.36,
+      "sharpR": 190.21,
+      "areaL": 0.11710000038146973,
+      "areaR": 0.11640000343322754,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191202_219853.jpg",
+      "status": "valid",
+      "sharpL": 165.28,
+      "sharpR": 227.82,
+      "areaL": 0.11760000139474869,
+      "areaR": 0.11760000139474869,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191202_500575.jpg",
+      "status": "valid",
+      "sharpL": 177.5,
+      "sharpR": 213.31,
+      "areaL": 0.11749999970197678,
+      "areaR": 0.11659999936819077,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191202_801298.jpg",
+      "status": "valid",
+      "sharpL": 184.16,
+      "sharpR": 210.46,
+      "areaL": 0.11699999868869781,
+      "areaR": 0.1168999969959259,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191203_047622.jpg",
+      "status": "valid",
+      "sharpL": 188.46,
+      "sharpR": 202.89,
+      "areaL": 0.11739999800920486,
+      "areaR": 0.11659999936819077,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191203_253350.jpg",
+      "status": "valid",
+      "sharpL": 176.95,
+      "sharpR": 206.36,
+      "areaL": 0.11760000139474869,
+      "areaR": 0.11680000275373459,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191203_510727.jpg",
+      "status": "valid",
+      "sharpL": 173.41,
+      "sharpR": 197.33,
+      "areaL": 0.11749999970197678,
+      "areaR": 0.11720000207424164,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191203_663989.jpg",
+      "status": "valid",
+      "sharpL": 174.56,
+      "sharpR": 203.78,
+      "areaL": 0.1177000030875206,
+      "areaR": 0.11710000038146973,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191203_911081.jpg",
+      "status": "valid",
+      "sharpL": 175.46,
+      "sharpR": 191.63,
+      "areaL": 0.11789999902248383,
+      "areaR": 0.11760000139474869,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191204_108130.jpg",
+      "status": "valid",
+      "sharpL": 182.24,
+      "sharpR": 185.5,
+      "areaL": 0.11760000139474869,
+      "areaR": 0.1177000030875206,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191204_330324.jpg",
+      "status": "valid",
+      "sharpL": 177.57,
+      "sharpR": 183.25,
+      "areaL": 0.1177000030875206,
+      "areaR": 0.11760000139474869,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191204_560209.jpg",
+      "status": "valid",
+      "sharpL": 181.59,
+      "sharpR": 186.48,
+      "areaL": 0.1177000030875206,
+      "areaR": 0.11760000139474869,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191204_792585.jpg",
+      "status": "valid",
+      "sharpL": 176.47,
+      "sharpR": 194.27,
+      "areaL": 0.11789999902248383,
+      "areaR": 0.11760000139474869,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191205_007290.jpg",
+      "status": "valid",
+      "sharpL": 182.31,
+      "sharpR": 199.89,
+      "areaL": 0.11779999732971191,
+      "areaR": 0.11729999631643295,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191205_250742.jpg",
+      "status": "valid",
+      "sharpL": 171.78,
+      "sharpR": 190.83,
+      "areaL": 0.11760000139474869,
+      "areaR": 0.11699999868869781,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191205_440275.jpg",
+      "status": "valid",
+      "sharpL": 167.49,
+      "sharpR": 199.94,
+      "areaL": 0.11749999970197678,
+      "areaR": 0.1168999969959259,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191205_964937.jpg",
+      "status": "valid",
+      "sharpL": 178.08,
+      "sharpR": 218.09,
+      "areaL": 0.11729999631643295,
+      "areaR": 0.11720000207424164,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191214_466739.jpg",
+      "status": "valid",
+      "sharpL": 177.28,
+      "sharpR": 195.15,
+      "areaL": 0.2809999883174896,
+      "areaR": 0.25999999046325684,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191214_706178.jpg",
+      "status": "valid",
+      "sharpL": 179.15,
+      "sharpR": 201.23,
+      "areaL": 0.2808000147342682,
+      "areaR": 0.2599000036716461,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191214_902154.jpg",
+      "status": "valid",
+      "sharpL": 178.56,
+      "sharpR": 198.87,
+      "areaL": 0.28110000491142273,
+      "areaR": 0.2597000002861023,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191215_149872.jpg",
+      "status": "valid",
+      "sharpL": 182.35,
+      "sharpR": 203.69,
+      "areaL": 0.28060001134872437,
+      "areaR": 0.25999999046325684,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191215_352357.jpg",
+      "status": "valid",
+      "sharpL": 182.38,
+      "sharpR": 202.24,
+      "areaL": 0.2809000015258789,
+      "areaR": 0.2597000002861023,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191215_953269.jpg",
+      "status": "valid",
+      "sharpL": 178.46,
+      "sharpR": 204.38,
+      "areaL": 0.2808000147342682,
+      "areaR": 0.2605000138282776,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191221_721829.jpg",
+      "status": "valid",
+      "sharpL": 181.42,
+      "sharpR": 213.27,
+      "areaL": 0.2549000084400177,
+      "areaR": 0.28780001401901245,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191221_924532.jpg",
+      "status": "valid",
+      "sharpL": 187.76,
+      "sharpR": 210.27,
+      "areaL": 0.2547000050544739,
+      "areaR": 0.28760001063346863,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191222_126689.jpg",
+      "status": "valid",
+      "sharpL": 186.94,
+      "sharpR": 211.99,
+      "areaL": 0.2551000118255615,
+      "areaR": 0.2879999876022339,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191222_331980.jpg",
+      "status": "valid",
+      "sharpL": 185.18,
+      "sharpR": 213.46,
+      "areaL": 0.2551000118255615,
+      "areaR": 0.28790000081062317,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191222_582767.jpg",
+      "status": "valid",
+      "sharpL": 184.88,
+      "sharpR": 215.4,
+      "areaL": 0.2558000087738037,
+      "areaR": 0.28839999437332153,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191222_901791.jpg",
+      "status": "valid",
+      "sharpL": 184.96,
+      "sharpR": 221.82,
+      "areaL": 0.2554999887943268,
+      "areaR": 0.28850001096725464,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260419_191223_256785.jpg",
+      "status": "valid",
+      "sharpL": 186.15,
+      "sharpR": 222.71,
+      "areaL": 0.2556000053882599,
+      "areaR": 0.2879999876022339,
+      "pass_sharp": true,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203150_702618.jpg",
+      "status": "weak",
+      "sharpL": 14.34,
+      "sharpR": 32.49,
+      "areaL": 0.2459000051021576,
+      "areaR": 0.2418999969959259,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203154_418793.jpg",
+      "status": "weak",
+      "sharpL": 14.74,
+      "sharpR": 30.19,
+      "areaL": 0.24959999322891235,
+      "areaR": 0.24609999358654022,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203157_267196.jpg",
+      "status": "weak",
+      "sharpL": 14.8,
+      "sharpR": 34.48,
+      "areaL": 0.2467000037431717,
+      "areaR": 0.24220000207424164,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203200_515012.jpg",
+      "status": "weak",
+      "sharpL": 14.58,
+      "sharpR": 67.51,
+      "areaL": 0.15539999306201935,
+      "areaR": 0.1492999941110611,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203208_304257.jpg",
+      "status": "weak",
+      "sharpL": 14.22,
+      "sharpR": 89.49,
+      "areaL": 0.13920000195503235,
+      "areaR": 0.13510000705718994,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203210_498863.jpg",
+      "status": "weak",
+      "sharpL": 11.8,
+      "sharpR": 77.79,
+      "areaL": 0.14079999923706055,
+      "areaR": 0.13689999282360077,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203217_736322.jpg",
+      "status": "weak",
+      "sharpL": 6.19,
+      "sharpR": 74.61,
+      "areaL": 0.1500999927520752,
+      "areaR": 0.15119999647140503,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203218_162260.jpg",
+      "status": "weak",
+      "sharpL": 5.85,
+      "sharpR": 71.71,
+      "areaL": 0.15160000324249268,
+      "areaR": 0.15279999375343323,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203220_645886.jpg",
+      "status": "weak",
+      "sharpL": 6.34,
+      "sharpR": 63.88,
+      "areaL": 0.14880000054836273,
+      "areaR": 0.15289999544620514,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203235_954873.jpg",
+      "status": "weak",
+      "sharpL": 19.83,
+      "sharpR": 76.71,
+      "areaL": 0.19820000231266022,
+      "areaR": 0.19539999961853027,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203236_996479.jpg",
+      "status": "weak",
+      "sharpL": 16.75,
+      "sharpR": 75.4,
+      "areaL": 0.19599999487400055,
+      "areaR": 0.19470000267028809,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203249_022603.jpg",
+      "status": "weak",
+      "sharpL": 15.69,
+      "sharpR": 116.73,
+      "areaL": 0.20010000467300415,
+      "areaR": 0.1875,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203251_779026.jpg",
+      "status": "weak",
+      "sharpL": 12.02,
+      "sharpR": 121.45,
+      "areaL": 0.20309999585151672,
+      "areaR": 0.19009999930858612,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203308_347513.jpg",
+      "status": "weak",
+      "sharpL": 1.19,
+      "sharpR": 18.11,
+      "areaL": 0.3172000050544739,
+      "areaR": 0.3167000114917755,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203310_413986.jpg",
+      "status": "weak",
+      "sharpL": 1.25,
+      "sharpR": 18.61,
+      "areaL": 0.31459999084472656,
+      "areaR": 0.3158000111579895,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203316_912198.jpg",
+      "status": "no_board",
+      "okL": false,
+      "okR": true
+    },
+    {
+      "file": "20260529_203317_977970.jpg",
+      "status": "weak",
+      "sharpL": 1.2,
+      "sharpR": 12.48,
+      "areaL": 0.366100013256073,
+      "areaR": 0.36970001459121704,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203401_113428.jpg",
+      "status": "weak",
+      "sharpL": 11.44,
+      "sharpR": 296.83,
+      "areaL": 0.16439999639987946,
+      "areaR": 0.16680000722408295,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203402_563191.jpg",
+      "status": "weak",
+      "sharpL": 10.97,
+      "sharpR": 291.25,
+      "areaL": 0.1671999990940094,
+      "areaR": 0.16910000145435333,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203404_577224.jpg",
+      "status": "weak",
+      "sharpL": 11.42,
+      "sharpR": 298.78,
+      "areaL": 0.16539999842643738,
+      "areaR": 0.16869999468326569,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203408_362628.jpg",
+      "status": "weak",
+      "sharpL": 10.56,
+      "sharpR": 269.96,
+      "areaL": 0.16920000314712524,
+      "areaR": 0.17170000076293945,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203408_585412.jpg",
+      "status": "weak",
+      "sharpL": 11.26,
+      "sharpR": 284.73,
+      "areaL": 0.16910000145435333,
+      "areaR": 0.17110000550746918,
+      "pass_sharp": false,
+      "pass_area": true
+    },
+    {
+      "file": "20260529_203410_206652.jpg",
+      "status": "weak",
+      "sharpL": 11.0,
+      "sharpR": 280.08,
+      "areaL": 0.16930000483989716,
+      "areaR": 0.1712000072002411,
+      "pass_sharp": false,
+      "pass_area": true
+    }
+  ]
+}
