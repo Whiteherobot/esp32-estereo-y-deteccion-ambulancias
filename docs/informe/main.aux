@@ -1,0 +1,110 @@
+\relax 
+\providecommand \babel@aux [2]{\global \let \babel@toc \@gobbletwo }
+\@nameuse{bbl@beforestart}
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\bibstyle{IEEEtranN}
+\babel@aux{english}{}
+\citation{hartley2003multiple}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introducción}{3}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Planteamiento del Problema}{3}{section.2}\protected@file@percent }
+\citation{gamma1994design}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Arquitectura del Sistema}{4}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Diseño General: MVC en C++}{4}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Arquitectura de Hardware}{4}{subsection.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Pipeline de procesamiento y capas MVC del sistema. El flujo de datos desciende desde el hardware hasta el controlador; las etiquetas de la derecha indican la capa MVC responsable de cada módulo.}}{5}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:pipeline}{{1}{5}{Pipeline de procesamiento y capas MVC del sistema. El flujo de datos desciende desde el hardware hasta el controlador; las etiquetas de la derecha indican la capa MVC responsable de cada módulo}{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Implementación}{5}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Optimización del Firmware (AEC, AGC, AWB, XCLK)}{5}{subsection.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Parámetros finales del firmware ESP32-CAM.}}{6}{table.caption.2}\protected@file@percent }
+\newlabel{tab:firmware}{{1}{6}{Parámetros finales del firmware ESP32-CAM}{table.caption.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Adquisición Concurrente de Fotogramas: Productor-Consumidor con libcurl}{6}{subsection.4.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}{\ignorespaces Bucle del hilo productor en CameraSource.cpp (simplificado).}}{6}{lstlisting.1}\protected@file@percent }
+\citation{robles2026unidad1}
+\citation{zhang2000flexible}
+\citation{szeliski2022computer}
+\citation{robles2026parte2}
+\citation{pizer1987adaptive}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Calibración Estereoscópica}{7}{subsection.4.3}\protected@file@percent }
+\newlabel{eq:proj}{{1}{7}{Calibración Estereoscópica}{equation.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Parámetros clave recuperados de la calibración estereoscópica.}}{7}{table.caption.3}\protected@file@percent }
+\newlabel{tab:calib}{{2}{7}{Parámetros clave recuperados de la calibración estereoscópica}{table.caption.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Ecualización Adaptativa de Histograma: CLAHE}{7}{subsection.4.4}\protected@file@percent }
+\newlabel{sec:clahe}{{4.4}{7}{Ecualización Adaptativa de Histograma: CLAHE}{subsection.4.4}{}}
+\citation{hirschmuller2008stereo}
+\citation{min2014fast}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}{\ignorespaces Aplicación de CLAHE en StereoProcessor.cpp.}}{8}{lstlisting.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Estimación de Disparidad: Semi-Global Block Matching (SGBM)}{8}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Posprocesamiento de Disparidad: Filtro de Mínimos Cuadrados Ponderados (WLS)}{8}{subsection.4.6}\protected@file@percent }
+\citation{bradski2008learning}
+\citation{kalman1960new}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Reproyección 3D con la Matriz de Perspectiva $\mathbf  {Q}$}{9}{subsection.4.7}\protected@file@percent }
+\newlabel{eq:Q}{{4}{9}{Reproyección 3D con la Matriz de Perspectiva $\mathbf {Q}$}{equation.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Estabilización Temporal: Filtro de Kalman Escalar}{9}{subsection.4.8}\protected@file@percent }
+\newlabel{sec:kalman}{{4.8}{9}{Estabilización Temporal: Filtro de Kalman Escalar}{subsection.4.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Relleno de la Región Inválida del Mapa de Disparidad}{10}{subsection.4.9}\protected@file@percent }
+\newlabel{sec:disparityfill}{{4.9}{10}{Relleno de la Región Inválida del Mapa de Disparidad}{subsection.4.9}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}{\ignorespaces Relleno de región inválida en StereoProcessor.cpp.}}{10}{lstlisting.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.10}Filtrado de Valores Atípicos: Rango Intercuartílico (IQR)}{10}{subsection.4.10}\protected@file@percent }
+\newlabel{sec:iqr}{{4.10}{10}{Filtrado de Valores Atípicos: Rango Intercuartílico (IQR)}{subsection.4.10}{}}
+\newlabel{eq:iqr}{{5}{10}{Filtrado de Valores Atípicos: Rango Intercuartílico (IQR)}{equation.5}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}{\ignorespaces Filtrado IQR en collect\_measurements.py.}}{10}{lstlisting.4}\protected@file@percent }
+\citation{chai1999face}
+\citation{robles2026guia2}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.11}Segmentación de Piel en YCrCb (HandDetector)}{11}{subsection.4.11}\protected@file@percent }
+\newlabel{sec:ycrcb}{{4.11}{11}{Segmentación de Piel en YCrCb (HandDetector)}{subsection.4.11}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}{\ignorespaces Segmentación YCrCb en HandDetector.cpp.}}{11}{lstlisting.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.12}Corrección de Escala VGA/QVGA en Calibración}{11}{subsection.4.12}\protected@file@percent }
+\newlabel{sec:vgafix}{{4.12}{11}{Corrección de Escala VGA/QVGA en Calibración}{subsection.4.12}{}}
+\newlabel{eq:vgascale}{{7}{12}{Corrección de Escala VGA/QVGA en Calibración}{equation.7}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6}{\ignorespaces Escalado de matrices en StereoCalibration.cpp.}}{12}{lstlisting.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.13}Efecto de Realidad Aumentada: Distorsión Sinusoidal y Aura de Energía}{12}{subsection.4.13}\protected@file@percent }
+\citation{robles2026guia2}
+\newlabel{eq:distortion}{{8}{13}{}{equation.8}{}}
+\newlabel{eq:warp}{{9}{13}{}{equation.9}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {7}{\ignorespaces Núcleo de la distorsión sinusoidal (ARRenderer.cpp).}}{13}{lstlisting.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Resultados y Evaluación}{14}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Tasa de Fotogramas (FPS)}{14}{subsection.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Desglose de latencia por etapa (promedio de 200 fotogramas).}}{14}{table.caption.12}\protected@file@percent }
+\newlabel{tab:fps}{{3}{14}{Desglose de latencia por etapa (promedio de 200 fotogramas)}{table.caption.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Sistema en Funcionamiento}{14}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Exactitud de Medición de Distancia}{14}{subsection.5.3}\protected@file@percent }
+\newlabel{fig:sys30}{{2a}{15}{30\,cm — aura roja, distorsión fuerte ($A\approx 22$\,px)}{figure.caption.13}{}}
+\newlabel{sub@fig:sys30}{{a}{15}{30\,cm — aura roja, distorsión fuerte ($A\approx 22$\,px)}{figure.caption.13}{}}
+\newlabel{fig:sys60}{{2b}{15}{60\,cm — aura verde, distorsión sutil ($A\approx 5$\,px)}{figure.caption.13}{}}
+\newlabel{sub@fig:sys60}{{b}{15}{60\,cm — aura verde, distorsión sutil ($A\approx 5$\,px)}{figure.caption.13}{}}
+\newlabel{fig:sys90}{{2c}{15}{90\,cm — aura cyan, distorsión nula ($A<1$\,px)}{figure.caption.13}{}}
+\newlabel{sub@fig:sys90}{{c}{15}{90\,cm — aura cyan, distorsión nula ($A<1$\,px)}{figure.caption.13}{}}
+\newlabel{fig:sysdist}{{2d}{15}{Distorsión sinusoidal activa ($Z\approx 50$\,cm)}{figure.caption.13}{}}
+\newlabel{sub@fig:sysdist}{{d}{15}{Distorsión sinusoidal activa ($Z\approx 50$\,cm)}{figure.caption.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Capturas del sistema en tiempo real a las tres distancias de validación. Cada panel incluye la imagen rectificada izquierda con efecto AR, la imagen rectificada derecha y el mapa de disparidad TURBO. Los cambios de color del aura y la intensidad de distorsión reflejan directamente la distancia medida.}}{15}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:sysall}{{2}{15}{Capturas del sistema en tiempo real a las tres distancias de validación. Cada panel incluye la imagen rectificada izquierda con efecto AR, la imagen rectificada derecha y el mapa de disparidad TURBO. Los cambios de color del aura y la intensidad de distorsión reflejan directamente la distancia medida}{figure.caption.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Error absoluto medio y desviación estándar en cm a tres distancias nominales (50 muestras con filtrado IQR). Los tres puntos de medición superan el umbral de $\pm 3$\,cm de la rúbrica, con errores medios inferiores a $0{,}55$\,cm.}}{16}{figure.caption.14}\protected@file@percent }
+\newlabel{fig:accuracy}{{3}{16}{Error absoluto medio y desviación estándar en cm a tres distancias nominales (50 muestras con filtrado IQR). Los tres puntos de medición superan el umbral de $\pm 3$\,cm de la rúbrica, con errores medios inferiores a $0{,}55$\,cm}{figure.caption.14}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Estabilización con el Filtro de Kalman}{16}{subsection.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Efecto Visual AR}{16}{subsection.5.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Profundidad cruda vs.\ filtrada sobre 40 fotogramas para un objeto estático a 60\,cm. La banda verde representa el umbral de estabilidad de $\pm 3$\,cm exigido por la rúbrica. Las lecturas crudas oscilan hasta $\pm 14$\,cm, mientras que la salida filtrada permanece dentro de $\pm 2{,}5$\,cm respecto a la media.}}{17}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:kalman}{{4}{17}{Profundidad cruda vs.\ filtrada sobre 40 fotogramas para un objeto estático a 60\,cm. La banda verde representa el umbral de estabilidad de $\pm 3$\,cm exigido por la rúbrica. Las lecturas crudas oscilan hasta $\pm 14$\,cm, mientras que la salida filtrada permanece dentro de $\pm 2{,}5$\,cm respecto a la media}{figure.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Respuesta del radio del aura: a distancias cortas ($< 60$\,cm) el radio se limita a 140\,px (máximo), proporcionando una alerta visual fuerte. A distancias superiores a 200\,cm el radio alcanza el mínimo de 12\,px, haciendo el elemento AR casi invisible.}}{17}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:ar_curve}{{5}{17}{Respuesta del radio del aura: a distancias cortas ($< 60$\,cm) el radio se limita a 140\,px (máximo), proporcionando una alerta visual fuerte. A distancias superiores a 200\,cm el radio alcanza el mínimo de 12\,px, haciendo el elemento AR casi invisible}{figure.caption.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Video-Blog de Demostración}{18}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusiones}{18}{section.7}\protected@file@percent }
+\bibcite{hartley2003multiple}{{1}{}{{}}{{}}}
+\bibcite{hirschmuller2008stereo}{{2}{}{{}}{{}}}
+\bibcite{zhang2000flexible}{{3}{}{{}}{{}}}
+\bibcite{pizer1987adaptive}{{4}{}{{}}{{}}}
+\bibcite{min2014fast}{{5}{}{{}}{{}}}
+\bibcite{kalman1960new}{{6}{}{{}}{{}}}
+\bibcite{bradski2008learning}{{7}{}{{}}{{}}}
+\bibcite{gamma1994design}{{8}{}{{}}{{}}}
+\bibcite{szeliski2022computer}{{9}{}{{}}{{}}}
+\bibcite{espressif2023esp32}{{10}{}{{}}{{}}}
+\bibcite{robles2026unidad1}{{11}{}{{}}{{}}}
+\bibcite{robles2026parte2}{{12}{}{{}}{{}}}
+\bibcite{robles2026guia2}{{13}{}{{}}{{}}}
+\bibcite{chai1999face}{{14}{}{{}}{{}}}
+\bibcite{tukey1977exploratory}{{15}{}{{}}{{}}}
+\providecommand\NAT@force@numbers{}\NAT@force@numbers
+\gdef \@abspage@last{21}
