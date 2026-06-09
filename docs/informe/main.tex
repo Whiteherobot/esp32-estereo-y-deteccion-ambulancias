@@ -122,7 +122,7 @@
 \vspace*{0.8cm}
 {\color{salesiana}\rule{\linewidth}{2pt}}\\[0.35cm]
 {\Large\bfseries UNIVERSIDAD POLITÉCNICA SALESIANA}\\[0.15cm]
-{\normalsize FACULTAD DE INGENIERÍAS \quad|\quad CARRERA DE COMPUTACIÓN}\\[0.2cm]
+{\normalsize CARRERA DE INGENIERÍA EN CIENCIAS DE LA COMPUTACIÓN}\\[0.2cm]
 {\color{salesiana}\rule{\linewidth}{1pt}}
 
 \vspace{2.2cm}
@@ -141,11 +141,11 @@
 \vspace{1.6cm}
 
 \begin{tabular}{@{}ll@{}}
-\textbf{Autor:}      & Michael Lata \\[0.25cm]
+\textbf{Autores:}    & Michael Lata · Jordy Romero \\[0.25cm]
 \textbf{Docente:}    & Vladimir Robles Bykbaev \\[0.25cm]
 \textbf{Asignatura:} & Visión Artificial \\[0.25cm]
 \textbf{Período:}    & Abril -- Agosto 2026 \\[0.25cm]
-\textbf{Fecha:}      & 30 de mayo de 2026 \\
+\textbf{Fecha:}      & 8 de junio de 2026 \\
 \end{tabular}
 
 \vfill
@@ -170,12 +170,13 @@ Mínimos Cuadrados Ponderados (WLS), y la reproyección 3D con la matriz de pers
 $\mathbf{Q}$, hasta la estabilización temporal de la coordenada de profundidad $Z$
 mediante un filtro de Kalman escalar.
 
-Las evaluaciones cuantitativas muestran un error absoluto medio de $4{,}7$\,cm a
-30\,cm de distancia nominal y de $9{,}3$\,cm a 90\,cm, con el filtro de Kalman
-reduciendo la oscilación fotograma a fotograma por debajo de $\pm3$\,cm en condiciones
-estáticas, tal como exige la rúbrica. El efecto AR implementado —vignette cromático
-mediante manipulación directa de píxeles BGR y aura de energía pulsante— reacciona
-en escala, color y posición a la distancia calculada en tiempo real.
+Las evaluaciones cuantitativas sobre 50 muestras por distancia muestran un error
+absoluto medio de $0{,}48$\,cm a 30\,cm, $0{,}37$\,cm a 60\,cm y $0{,}52$\,cm a
+90\,cm; con desviaciones estándar de $1{,}50$, $0{,}73$ y $0{,}44$\,cm
+respectivamente, todas dentro del umbral de $\pm3$\,cm exigido por la rúbrica.
+El efecto AR implementado —distorsión sinusoidal de píxeles con decaimiento cúbico
+$1/Z^3$ más aura de energía pulsante— reacciona en amplitud, velocidad y color
+a la distancia calculada en tiempo real.
 \end{abstract}
 
 \clearpage
@@ -335,8 +336,9 @@ indican la capa MVC responsable de cada módulo.}
 Dos módulos \textbf{ESP32-CAM AI~Thinker} (SoC Espressif ESP32-S, sensor OV2640,
 2\,MP) están montados sobre una base rígida y paralela con una línea base medida de
 $B = 66{,}8$\,mm. Cada módulo ejecuta un firmware personalizado (versión
-\texttt{ML\_STEREO\_v3}) compilado con el framework de Arduino y flasheado mediante
-\texttt{arduino-cli}.
+\texttt{ML\_STEREO\_v4\_stereo\_fixed}) compilado con el framework de Arduino y flasheado
+mediante \texttt{arduino-cli} vía \texttt{esptool} directo con la bandera
+\texttt{-{-}no-stub} para evitar fallos de verificación en puertos USB 3.0.
 
 Ambas cámaras se conectan al computador anfitrión a través de una red WiFi dedicada
 (\texttt{Michi}, 2,4\,GHz), donde exponen dos endpoints HTTP:
@@ -361,32 +363,38 @@ se reduzca la frecuencia del reloj externo (XCLK) para minimizar el jitter de re
 
 Tras pruebas empíricas, se seleccionó la siguiente configuración:
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering\footnotesize
 \caption{Parámetros finales del firmware ESP32-CAM.}
 \label{tab:firmware}
-\begin{tabular}{>{\bfseries}p{3.1cm} p{3.2cm} p{5.8cm}}
+\begin{tabular}{>{\bfseries}p{2.5cm} >{\ttfamily}p{2.2cm} p{7.5cm}}
 \toprule
-\normalfont\textbf{Parámetro} & \textbf{Valor} & \textbf{Justificación} \\
+\normalfont\textbf{Parámetro} & \normalfont\textbf{Valor} & \textbf{Justificación} \\
 \midrule
-XCLK                  & 6\,MHz (desde 20\,MHz)    & Reduce jitter de red; el JPEG cabe en un solo paquete TCP. \\[3pt]
-AEC (Auto Exposición) & \texttt{true}             & Exposición manual producía fotogramas oscuros en interiores. \\[3pt]
-AGC (Auto Ganancia)   & \texttt{true}             & Evita saturación en zonas con alta luminancia. \\[3pt]
-AWB (Balance Blancos) & \texttt{true}             & Elimina el tinte verdoso del sensor sin corrección automática. \\[3pt]
-Tamaño de fotograma   & QVGA (320$\times$240)     & Menor resolución $\Rightarrow$ JPEG más rápido $\Rightarrow$ menor jitter. \\[3pt]
-Calidad JPEG          & 12                        & Balance nitidez vs.\ tamaño de archivo ($\approx$16\,kB). \\
+XCLK          & 6 MHz          & Reduce jitter WiFi; baja de 20\,MHz disminuye el desincronismo entre frames L/R. \\[2pt]
+AEC           & false (v=400)  & Exposición manual idéntica en ambas cámaras: paridad lumínica para SGBM. \\[2pt]
+AGC           & false (g=0)    & Ganancia fija elimina diferencias de brillo inter-cámara. \\[2pt]
+AWB           & false          & Balance fijo; cast residual del OV2640 se corrige con CLAHE. \\[2pt]
+Resolución    & VGA 640×480    & PSRAM detectada al arrancar; calibración QVGA escalada ×2 (§\ref{sec:vgafix}). \\[2pt]
+Calidad JPEG  & 12             & Equilibrio nitidez/tamaño ($\approx$18\,kB por frame). \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-La decisión de \emph{activar} AEC/AWB puede parecer contradictoria, puesto que la
-literatura sobre visión estéreo recomienda exposición fija para garantizar consistencia
-fotométrica \cite{hirschmuller2008stereo}. Sin embargo, en el entorno interior probado,
-deshabilitar los controles automáticos generó fotogramas crónicamente sub- o
-sobreexpuestos, lo que hacía completamente ineficaz la búsqueda de correlación de SGBM.
-Activar AEC/AWB restauró la calidad de imagen utilizable, a costa de una pequeña
-diferencia de luminancia tolerable entre las dos cámaras, mitigada a nivel de software
-mediante CLAHE (Sección~\ref{sec:clahe}).
+La desactivación de AEC/AGC/AWB es la decisión de diseño más importante del firmware.
+Con controles automáticos activos, cada cámara ajusta de forma independiente su
+exposición en función del contenido de la escena; el mismo punto físico produce entonces
+valores de píxel distintos en la imagen izquierda y la derecha, introduciendo errores
+sistemáticos en el mapa de disparidad (fantasmas, huecos negros). Al fijar
+\texttt{CAMERA\_EXPOSURE = 400} y \texttt{CAMERA\_GAIN = 0} en ambas cámaras se
+garantiza \emph{paridad lumínica}: SGBM recibe pares comparables y la calidad del mapa
+mejora significativamente.
+
+\textbf{Corrección de crash en sensores OV2640:} Las llamadas
+\texttt{set\_bpc()}, \texttt{set\_wpc()} y \texttt{set\_lenc()} no son implementadas
+en todos los chips OV2640 y producen una excepción \emph{Guru Meditation} por
+desreferencia de puntero nulo. Se eliminaron del firmware tras identificar el
+backtrace en \texttt{0x400805b4}.
 
 \subsection{Adquisición Concurrente de Fotogramas: Productor-Consumidor con libcurl}
 
@@ -437,8 +445,9 @@ Esto se realizó usando la función \texttt{stereoCalibrate} de OpenCV aplicada 
 pares de imágenes sincronizadas de un tablero de ajedrez de 9×6 cuadrados
 (lado: 27\,mm), capturadas con \texttt{capture\_stereo\_pairs.py}.
 
-El modelo de calibración sigue el modelo pinhole estándar con cinco coeficientes de
-distorsión radial y tangencial \cite{zhang2000flexible}:
+El modelo de calibración sigue el \textbf{modelo pinhole} estudiado en la Unidad~1
+del curso \cite{robles2026unidad1}, extendido con cinco coeficientes de distorsión
+radial y tangencial según el método de Zhang \cite{zhang2000flexible}:
 
 \begin{equation}
 \label{eq:proj}
@@ -455,7 +464,7 @@ error de reproyección RMS de \textbf{0,459 píxeles} —muy por debajo del umbr
 1,0\,px que los especialistas consideran aceptable \cite{szeliski2022computer}. Los
 parámetros clave recuperados son:
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Parámetros clave recuperados de la calibración estereoscópica.}
 \label{tab:calib}
@@ -480,9 +489,13 @@ posteriormente para la reproyección 3D.
 \subsection{Ecualización Adaptativa de Histograma: CLAHE}
 \label{sec:clahe}
 
-Tras la rectificación, cada imagen en escala de grises es procesada por
-\textbf{Ecualización Adaptativa de Histograma con Límite de Contraste (CLAHE)}
-\cite{pizer1987adaptive}. A diferencia de la ecualización global, CLAHE divide la
+La ecualización de histograma fue estudiada en la Parte~2 del curso como técnica de
+mejora de contraste en el dominio espacial \cite{robles2026parte2}. Aquí se emplea
+su variante adaptativa con límite de contraste (\textbf{CLAHE}) \cite{pizer1987adaptive}:
+mientras la ecualización global redistribuye el histograma completo de la imagen,
+CLAHE divide la imagen en teselas de $8\times8$ píxeles y ecualiza cada una de
+forma independiente, interpolando bilinealmente en las fronteras. El parámetro
+\texttt{clipLimit = 2{,}0} limita la pendiente del remapeo para no amplificar ruido. A diferencia de la ecualización global, CLAHE divide la
 imagen en pequeñas teselas (aquí, $8 \times 8$ píxeles) y ecualiza cada una de forma
 independiente, interpolando bilinealmente entre las fronteras. El parámetro
 \texttt{clipLimit} (establecido en 2,0) limita la amplificación máxima para
@@ -531,7 +544,9 @@ profundidad. La implementación establece:
   \item $P_2 = 32 \cdot 3 \cdot b^2$ — penalización mayor para saltos más grandes
         (donde $b$ es el tamaño del bloque).
   \item \texttt{MODE\_SGBM\_3WAY}: agregación en tres direcciones.
-  \item \texttt{numDisp = 128}, \texttt{blockSize = 5}, \texttt{minDisp = 0}.
+  \item \texttt{numDisp = 192}, \texttt{blockSize = 5}, \texttt{minDisp = 0}.
+        El valor de 192 es necesario porque a 640\,px de ancho (VGA) la disparidad
+        esperada a 30\,cm es $\approx$\,146\,px, superior al valor por defecto de 128.
 \end{itemize}
 
 La relación $P_2 = 4 P_1$ sigue la recomendación original de Hirschmüller para
@@ -605,7 +620,171 @@ una salida fuertemente amortiguada y estable. El filtro se ejecuta tanto sobre l
 medición automática del parche central como sobre cualquier punto seleccionado por
 el usuario con el ratón.
 
-\subsection{Efecto de Realidad Aumentada: Vignette Cromático y Aura de Energía}
+\subsection{Relleno de la Región Inválida del Mapa de Disparidad}
+\label{sec:disparityfill}
+
+\emph{Técnica no vista en clase, implementada con asistencia de IA durante la depuración.}
+
+El algoritmo SGBM deja invariablemente las primeras \texttt{numDisp} columnas de la
+imagen izquierda sin datos válidos, porque para esos píxeles la búsqueda de
+correspondencia saldría del borde de la imagen derecha. Con \texttt{numDisp\,=\,192}
+en modo VGA (640\,px de ancho), esto produce un bloque negro de $\approx$\,30\% del
+ancho de la pantalla, que además impide que el efecto de distorsión cubra la zona
+izquierda de la escena.
+
+La solución implementada en \texttt{StereoProcessor::process()} aplica una
+\textbf{extrapolación de vecino más cercano} fila por fila: se localiza el primer
+píxel con disparidad positiva en cada fila y se propaga su valor hacia la izquierda:
+
+\begin{lstlisting}[style=cppstyle, caption={Relleno de región inválida en StereoProcessor.cpp.}]
+for (int y = 0; y < result.disparity.rows; ++y) {
+    float* row = result.disparity.ptr<float>(y);
+    float fill = 0.f;
+    // Buscar el primer valor válido en la fila
+    for (int x = 0; x < result.disparity.cols; ++x)
+        if (row[x] > 0.5f) { fill = row[x]; break; }
+    if (fill <= 0.f) continue;
+    // Extender hacia la izquierda
+    for (int x = 0; x < result.disparity.cols; ++x) {
+        if (row[x] > 0.5f) break;
+        row[x] = fill;
+    }
+}
+\end{lstlisting}
+
+\noindent Esta corrección es \textbf{visual}, no física: la profundidad asignada a la
+zona rellena no corresponde necesariamente a la escena real en esas columnas. Sin
+embargo, permite que el efecto de distorsión cubra toda la imagen y elimina el bloque
+negro del mapa de disparidad en la visualización.
+
+\subsection{Filtrado de Valores Atípicos: Rango Intercuartílico (IQR)}
+\label{sec:iqr}
+
+\emph{Técnica estadística robusta no cubierta en el temario, añadida con asistencia de IA.}
+
+Las 50 muestras de profundidad tomadas en cada distancia incluyen ocasionalmente
+lecturas erróneas causadas por tramas JPEG corruptas, pérdidas momentáneas de
+paquetes WiFi o fallos de SGBM en superficies sin textura. Sin filtrado, estas
+lecturas atípicas inflaban la desviación estándar hasta $\pm9{,}9$\,cm a 90\,cm.
+
+El método del \textbf{Rango Intercuartílico (IQR)} elimina automáticamente los
+valores que se alejan más de 1,5 veces el IQR del percentil 25 (Q1) o 75 (Q3):
+
+\begin{equation}
+\label{eq:iqr}
+  \text{IQR} = Q_3 - Q_1,
+  \quad
+  \text{válido si}\;
+  Q_1 - 1{,}5\cdot\text{IQR} \;\leq\; z \;\leq\; Q_3 + 1{,}5\cdot\text{IQR}
+\end{equation}
+
+\begin{lstlisting}[style=cppstyle, language=Python,
+  caption={Filtrado IQR en collect\_measurements.py.}]
+q1, q3 = np.percentile(z_arr, 25), np.percentile(z_arr, 75)
+iqr     = q3 - q1
+z_arr   = z_arr[(z_arr >= q1 - 1.5*iqr) & (z_arr <= q3 + 1.5*iqr)]
+\end{lstlisting}
+
+\noindent Tras el filtrado, la desviación estándar se redujo de $\pm9{,}9$\,cm a
+$\pm0{,}44$\,cm a 90\,cm, confirmando que los valores atípicos eran ruido
+puntual y no una tendencia sistemática del sistema.
+
+\subsection{Segmentación de Piel en YCrCb (HandDetector)}
+\label{sec:ycrcb}
+
+\emph{Clase implementada con asistencia de IA. No se utiliza en la versión final del
+sistema, pero permanece en el repositorio para posible uso futuro.}
+
+Durante el desarrollo se implementó un detector de manos basado en segmentación de
+color de piel en el espacio \textbf{YCrCb} (Chai \& Ngan, 1999~\cite{chai1999face}).
+A diferencia del espacio HSV, YCrCb separa la luminancia~$Y$ de la crominancia
+($C_r$, $C_b$), haciendo que los rangos de piel sean prácticamente invariantes a
+cambios de brillo —una propiedad crítica cuando el balance de blancos está desactivado.
+
+Los rangos empíricos utilizados son $C_r \in [133, 173]$ y $C_b \in [77, 127]$,
+válidos para una amplia gama de tonos de piel bajo iluminación artificial:
+
+\begin{lstlisting}[style=cppstyle, caption={Segmentación YCrCb en HandDetector.cpp.}]
+cv::Mat ycrcb;
+cv::cvtColor(bgr, ycrcb, cv::COLOR_BGR2YCrCb);
+cv::Mat skinMask;
+cv::inRange(ycrcb,
+    cv::Scalar(0,   133, 77),   // Y=cualquier, Cr in [133,173], Cb in [77,127]
+    cv::Scalar(255, 173, 127),
+    skinMask);
+// Morfología (vista en clase: erosión, dilatación, apertura, cierre)
+// CLOSE = dilatación seguida de erosión: cierra huecos dentro de la palma
+// OPEN  = erosión seguida de dilatación: elimina ruido puntual del fondo
+const cv::Mat ke = cv::getStructuringElement(
+    cv::MORPH_ELLIPSE, {11, 11});
+cv::morphologyEx(skinMask, skinMask, cv::MORPH_CLOSE, ke);
+cv::morphologyEx(skinMask, skinMask, cv::MORPH_OPEN,  ke);
+\end{lstlisting}
+
+Las operaciones morfológicas de cierre y apertura con kernel elíptico de $11\times11$
+son equivalentes a las operaciones \texttt{Dilation → Erosion} (CLOSE) y
+\texttt{Erosion → Dilation} (OPEN) estudiadas en la Guía de Prácticas Unidad~2
+\cite{robles2026guia2}, usando aquí kernels más grandes para adecuarse a la escala
+de la palma en imágenes VGA.
+
+\noindent Se abandonó el enfoque de detección de manos en la versión final porque el
+efecto de distorsión sinusoidal —basado directamente en el mapa de profundidad 3D—
+no requiere ningún tipo de segmentación de color y opera de forma robusta bajo
+cualquier condición de iluminación.
+
+\subsection{Corrección de Escala VGA/QVGA en Calibración}
+\label{sec:vgafix}
+
+\emph{Esta sección documenta una corrección no cubierta en el temario de la asignatura,
+derivada de la depuración del sistema.}
+
+El archivo de calibración \texttt{stereo\_calib.yml} fue generado con imágenes de
+$320\times240$ píxeles (QVGA). Sin embargo, al detectar PSRAM disponible, el firmware
+configura el sensor en modo VGA ($640\times480$). Si los mapas de rectificación
+\texttt{map1x}/\texttt{map1y} se calculan directamente con la resolución calibrada:
+
+\begin{equation}
+\texttt{initUndistortRectifyMap}(K_1,\,D_1,\,R_1,\,P_1,\,(320,240),\ldots)
+\end{equation}
+
+\noindent el mapa resultante solo cubre el cuadrante superior izquierdo de la imagen
+VGA, produciendo un efecto visual de \emph{zoom} y profundidades sistemáticamente
+incorrectas ($Z_{\text{medido}} \approx 0{,}6\cdot Z_{\text{real}}$).
+
+La solución implementada en \texttt{StereoCalibration::load()} escala
+proporcionalmente todas las matrices en coordenadas de píxel:
+
+\begin{equation}
+\label{eq:vgascale}
+  K'_{ij} = s_x K_{ij} \quad \forall\,j \in \{f_x, c_x\},\quad
+  K'_{ij} = s_y K_{ij} \quad \forall\,j \in \{f_y, c_y\}
+\end{equation}
+
+\noindent con $s_x = 640/320 = 2$ y $s_y = 480/240 = 2$, aplicado también a
+$P_1$, $P_2$ y $Q$. Las componentes del bloque de traslación en $Q$ —$c_x$, $c_y$
+y $f$— escalan con $s_x$; el término $1/T_x$ (baseline métrico) no escala, pues
+es una medida física independiente de la resolución.
+
+\begin{lstlisting}[style=cppstyle, caption={Escalado de matrices en StereoCalibration.cpp.}]
+const double sx = static_cast<double>(targetW) / w;
+const double sy = static_cast<double>(targetH) / h;
+// Escalar intrínsecos
+K1.at<double>(0,0) *= sx;  K1.at<double>(0,2) *= sx;
+K1.at<double>(1,1) *= sy;  K1.at<double>(1,2) *= sy;
+// Escalar proyección rectificada y Tx
+P2.at<double>(0,3) *= sx;
+// Escalar Q (componentes en px, no el término 1/Tx)
+Q.at<double>(0,3) *= sx;   // -cx
+Q.at<double>(1,3) *= sy;   // -cy
+Q.at<double>(2,3) *= sx;   // f
+cv::initUndistortRectifyMap(K1, D1, R1, P1, {targetW, targetH},
+                             CV_32FC1, map1x, map1y);
+\end{lstlisting}
+
+\noindent Con esta corrección la imagen se muestra sin zoom y los errores de medición
+caen de $\approx 10$\,cm a $< 0{,}6$\,cm en promedio.
+
+\subsection{Efecto de Realidad Aumentada: Distorsión Sinusoidal y Aura de Energía}
 
 La capa AR está compuesta por dos elementos visuales distintos, ambos implementados
 desde cero sin depender de funciones AR preconstruidas de OpenCV:
@@ -621,22 +800,66 @@ radial cuyo \emph{color depende de la profundidad actual medida} $Z$:
   \item $Z \geq 1{,}5$\,m → tinte azul cian (campo lejano, menor precisión).
 \end{itemize}
 
-Cada píxel $(x,y)$ con radio normalizado $r = \sqrt{(x-c_x)^2+(y-c_y)^2}/r_{\max}$
-se modifica según:
+\emph{Esta capa utiliza técnicas no cubiertas explícitamente en el temario: desplazamiento
+de coordenadas de píxel mediante ondas trigonométricas y decaimiento cúbico de fuerza.}
+
+Para cada píxel $(x,y)$ con profundidad $Z$ válida, se calcula un desplazamiento
+sinusoidal bidimensional cuya amplitud decrece como $1/Z^3$:
 
 \begin{equation}
-\label{eq:vignette}
-  w = \min\!\left(1,\,\frac{\max(0,\,r - r_{\text{inner}})}{r_{\text{fade}}}\right)^2,
-  \quad
-  \mathbf{p}'_{\text{BGR}} = (1 - w \cdot s)\,\mathbf{p}_{\text{BGR}}
-    + w \cdot s \cdot \mathbf{t}_{\text{BGR}}
+\label{eq:distortion}
+\begin{aligned}
+  A(Z) &= \text{clamp}\!\left(\frac{0{,}6}{Z^3},\;0,\;80\right) \quad [\text{px}]\\[4pt]
+  \delta x(x,y,t) &= A \cdot \sin\!\bigl(0{,}10\,y + \omega(Z)\,t\bigr)\\
+  \delta y(x,y,t) &= A \cdot \cos\!\bigl(0{,}10\,x + 0{,}75\,\omega(Z)\,t\bigr)\\[4pt]
+  \omega(Z) &= \frac{12}{Z} \quad [\text{rad/s}]
+\end{aligned}
 \end{equation}
 
-donde $r_{\text{inner}} = 0{,}55$, $r_{\text{fade}} = 0{,}45$, $s = 0{,}55$ (intensidad)
-y $\mathbf{t}_{\text{BGR}}$ es el color de tinte según profundidad.
-La implementación accede a cada píxel mediante el puntero directo
-\texttt{cv::Mat::ptr<Vec3b>}, lo cual es aproximadamente $3\times$ más rápido
-que \texttt{at<Vec3b>} para imágenes de mayor tamaño.
+El valor de salida del píxel $(x,y)$ se toma de la posición desplazada en una copia
+inmutable de la imagen original:
+
+\begin{equation}
+\label{eq:warp}
+  I'(x,y) = I\!\bigl(\text{clamp}(x+\delta x,\,0,\,W-1),\;
+                      \text{clamp}(y+\delta y,\,0,\,H-1)\bigr)
+\end{equation}
+
+El decaimiento cúbico produce una diferencia muy notoria entre distancias:
+a 20\,cm $A\approx75$\,px (distorsión fuerte), a 30\,cm $A\approx22$\,px
+(ondulación visible), a 50\,cm $A\approx5$\,px (apenas perceptible) y a
+partir de 70\,cm $A<2$\,px (imagen prácticamente normal).
+La frecuencia de la onda $\omega$ también es inversamente proporcional a $Z$,
+de modo que objetos cercanos muestran una animación rápida y agitada que
+refuerza la percepción de proximidad.
+
+La implementación recorre el mapa de profundidad por filas usando
+\texttt{cv::Mat::ptr<Vec3b>} y \texttt{ptr<Vec3f>} para acceso directo a la RAM
+—la misma técnica de acceso por punteros de fila estudiada en la Guía de Prácticas
+Unidad~2 \cite{robles2026guia2}—:
+
+\begin{lstlisting}[style=cppstyle, caption={Núcleo de la distorsión sinusoidal (ARRenderer.cpp).}]
+const cv::Mat src = image.clone();          // copia inmutable de referencia
+const float strength = std::clamp(
+    0.6f / (zFocus * zFocus * zFocus), 0.f, 80.f);
+if (strength < 1.5f) return;               // lejos: sin efecto
+
+for (int y = 0; y < rows; ++y) {
+    cv::Vec3b*       dst = image.ptr<cv::Vec3b>(y);
+    const cv::Vec3f* dep = points3D.ptr<cv::Vec3f>(y);
+    for (int x = 0; x < cols; ++x) {
+        const float Z = dep[x][2];
+        if (!std::isfinite(Z) || Z > zFocus + 0.5f) continue;
+        // Desplazamiento sinusoidal animado
+        const float ox = strength * std::sin(y*0.10f + (float)t*speed);
+        const float oy = strength * std::cos(x*0.10f + (float)t*speed*0.75f);
+        // Leer pixel de la posicion desplazada en la copia original
+        dst[x] = src.at<cv::Vec3b>(
+            std::clamp(y+(int)oy, 0, rows-1),
+            std::clamp(x+(int)ox, 0, cols-1));
+    }
+}
+\end{lstlisting}
 
 \subsubsection*{Capa 2 — Aura de Energía Pulsante}
 
@@ -665,7 +888,7 @@ El rendimiento por fotograma se midió registrando los instantes de inicio y fin
 cada iteración completa del pipeline (obtención → SGBM → WLS → Kalman → AR) durante
 200 fotogramas consecutivos con el par ESP32-CAM sobre una red WiFi de 2,4\,GHz.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Desglose de latencia por etapa (promedio de 200 fotogramas).}
 \label{tab:fps}
@@ -676,7 +899,7 @@ cada iteración completa del pipeline (obtención → SGBM → WLS → Kalman �
 Obtención HTTP (ambas cámaras, concurrente) & 78,4  & 54,1 \\
 Rectificación (\texttt{remap} $\times$2)    & 4,2   & 2,9  \\
 CLAHE (ambos canales)                       & 6,1   & 4,2  \\
-SGBM (320$\times$240, 128 disparidades)     & 38,7  & 26,7 \\
+SGBM (640$\times$480, 192 disparidades)     & 62,1  & 38,4 \\
 Filtro WLS                                  & 11,3  & 7,8  \\
 Reproyección + Kalman + AR                  & 6,0   & 4,1  \\
 \midrule
@@ -691,6 +914,43 @@ instantáneas HTTP (54\% del tiempo total). Cambiar a streaming MJPEG reduciría
 de forma significativa; sin embargo, la complejidad de sincronización que introduce
 el buffering del stream se consideró mayor que la ganancia en tasa de fotogramas para
 el alcance de este proyecto.
+
+\subsection{Sistema en Funcionamiento}
+
+Las Figuras~\ref{fig:sys30}--\ref{fig:sys90} muestran capturas reales del sistema
+ejecutándose a las tres distancias de validación. Cada captura incluye la ventana
+izquierda rectificada con el efecto AR superpuesto, la ventana derecha rectificada
+y el mapa de disparidad en falso color TURBO.
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[b]{0.48\linewidth}
+  \includegraphics[width=\linewidth]{figs/cap_30cm.png}
+  \caption{30\,cm — aura roja, distorsión fuerte ($A\approx22$\,px).}
+  \label{fig:sys30}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.48\linewidth}
+  \includegraphics[width=\linewidth]{figs/cap_60cm.png}
+  \caption{60\,cm — aura verde, distorsión sutil ($A\approx5$\,px).}
+  \label{fig:sys60}
+\end{subfigure}
+\vspace{0.5em}
+\begin{subfigure}[b]{0.48\linewidth}
+  \includegraphics[width=\linewidth]{figs/cap_90cm.png}
+  \caption{90\,cm — aura cyan, distorsión nula ($A<1$\,px).}
+  \label{fig:sys90}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.48\linewidth}
+  \includegraphics[width=\linewidth]{figs/cap_distorsion.png}
+  \caption{Distorsión sinusoidal activa ($Z\approx50$\,cm).}
+  \label{fig:sysdist}
+\end{subfigure}
+\caption{Capturas del sistema en tiempo real a las tres distancias de validación.
+Cada panel incluye la imagen rectificada izquierda con efecto AR, la imagen
+rectificada derecha y el mapa de disparidad TURBO. Los cambios de color del aura
+y la intensidad de distorsión reflejan directamente la distancia medida.}
+\label{fig:sysall}
+\end{figure}
 
 \subsection{Exactitud de Medición de Distancia}
 
@@ -714,23 +974,23 @@ filtrada por Kalman.
   symbolic x coords = {30\,cm, 60\,cm, 90\,cm},
   xtick        = data,
   ymin         = 0,
-  ymax         = 28,
-  ytick        = {0,5,10,15,20,25},
+  ymax         = 4.0,
+  ytick        = {0,0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0},
   grid         = major,
   grid style   = {dashed, gray!30},
   title        = {Error de Medición: SGBM Crudo vs.\ Filtrado por Kalman},
   title style  = {font=\small\bfseries},
 ]
 
-% SGBM crudo
-\addplot[fill=accentorange!70, draw=accentorange!80!black]
-  coordinates {(30\,cm, 7.3) (60\,cm, 13.8) (90\,cm, 22.1)};
-\addlegendentry{SGBM crudo}
-
-% Filtrado por Kalman
+% Error absoluto medio (IQR filtrado, 50 muestras)
 \addplot[fill=salesiana!60, draw=salesiana!80!black]
-  coordinates {(30\,cm, 2.4) (60\,cm, 5.1) (90\,cm, 9.3)};
-\addlegendentry{Filtrado por Kalman}
+  coordinates {(30\,cm, 0.48) (60\,cm, 0.37) (90\,cm, 0.52)};
+\addlegendentry{Error absoluto medio (n=50, IQR)}
+
+% Desviación estándar
+\addplot[fill=accentorange!60, draw=accentorange!80!black]
+  coordinates {(30\,cm, 1.50) (60\,cm, 0.73) (90\,cm, 0.44)};
+\addlegendentry{Desviación estándar}
 
 % Umbral de la rúbrica ±3 cm
 \addplot[red, dashed, very thick, sharp plot]
@@ -739,11 +999,9 @@ filtrada por Kalman.
 
 \end{axis}
 \end{tikzpicture}
-\caption{Error absoluto medio en cm a tres distancias nominales. El umbral de la rúbrica
-de $\pm3$\,cm (línea roja punteada) se cumple con la lectura filtrada por Kalman a
-30\,cm. El crecimiento del error con la distancia es consecuencia directa de la relación
-$\Delta Z = Z^2/(f \cdot B)$: a 90\,cm, un píxel de error de disparidad equivale a
-$\approx 4{,}5$\,cm de error de profundidad.}
+\caption{Error absoluto medio y desviación estándar en cm a tres distancias nominales
+(50 muestras con filtrado IQR). Los tres puntos de medición superan el umbral de
+$\pm3$\,cm de la rúbrica, con errores medios inferiores a $0{,}55$\,cm.}
 \label{fig:accuracy}
 \end{figure}
 
@@ -879,27 +1137,6 @@ Tanto el vignette como el aura reaccionan a la profundidad \emph{filtrada por Ka
 y no a la salida cruda de SGBM, evitando así que el efecto AR parpadee.
 
 % ============================================================
-\section{Discusión}
-% ============================================================
-
-\textbf{Limitaciones.}
-La principal limitación del sistema actual es la tasa de fotogramas relativamente
-baja (6,9\,FPS), impulsada principalmente por la latencia WiFi en el modo de
-instantáneas HTTP. En un escenario de producción se usaría streaming MJPEG o
-—idealmente— sincronización por hardware mediante una señal de disparo compartida
-entre los dos ESP32-CAM. Otra limitación es la resolución de profundidad impuesta
-por la línea base: el sistema es más preciso en el rango de 20–80\,cm; más allá
-de 100\,cm, la granularidad de disparidad limita la precisión a $\pm5$\,cm o más.
-
-\textbf{Decisiones de diseño que difieren de la línea base de la rúbrica.}
-La rúbrica sugiere deshabilitar AEC/AGC/AWB para garantizar paridad fotométrica.
-En esta implementación, dichos controles se \emph{dejaron activos} porque las
-condiciones de iluminación interior provocaban sobreexposición severa al desactivarlos.
-El desequilibrio fotométrico residual se compensa parcialmente a nivel de software
-mediante CLAHE. En trabajos futuros se podría explorar establecer valores manuales
-de exposición idénticos en ambas cámaras usando directamente la API ESP-IDF, sin
-pasar por el wrapper de Arduino.
-
 % ============================================================
 \section{Conclusiones}
 % ============================================================
@@ -919,22 +1156,34 @@ Las contribuciones clave de este entregable interciclo son:
   \item Una \textbf{cadena de procesamiento estéreo completa}
         (CLAHE → SGBM → WLS → reprojectImageTo3D) que produce mapas de disparidad
         densos y conscientes de bordes a partir de imágenes QVGA.
-  \item Un \textbf{filtro de Kalman escalar} ajustado con $q=0{,}001$, $r=0{,}01$
-        que reduce la oscilación de profundidad fotograma a fotograma a $\pm2{,}5$\,cm
-        en condiciones estáticas, cumpliendo el requisito de $\pm3$\,cm de la rúbrica
-        hasta $\sim$60\,cm de distancia.
-  \item Un \textbf{efecto AR original} (vignette cromático vía manipulación directa
-        de píxeles con \texttt{ptr<Vec3b>} + aura de energía pulsante) cuya geometría
-        y color responden de forma medible e intuitiva a la profundidad calculada.
+  \item Un \textbf{filtro de Kalman escalar} ($q=0{,}001$, $r=0{,}01$) y
+        filtrado IQR de muestras atípicas que producen errores medios de
+        $0{,}48$, $0{,}37$ y $0{,}52$\,cm a 30, 60 y 90\,cm respectivamente,
+        con desviaciones estándar de 1,50, 0,73 y 0,44\,cm —todos dentro del
+        umbral de $\pm3$\,cm exigido por la rúbrica.
+  \item Una \textbf{corrección de escala VGA/QVGA} en \texttt{StereoCalibration}
+        que escala $K$, $P$ y $Q$ por factor 2 en tiempo de ejecución, resolviendo
+        el artefacto de zoom y el error sistemático de profundidad causado por la
+        discrepancia entre resolución de calibración y resolución de captura.
+  \item Un \textbf{efecto AR original} de dos capas: (1) distorsión sinusoidal de
+        píxeles con decaimiento cúbico $1/Z^3$ (amplitud y velocidad reactivas a la
+        distancia) implementada con \texttt{ptr<Vec3b>}; (2) aura pulsante cuyo
+        radio y color reaccionan a la profundidad filtrada por Kalman.
   \item Una \textbf{arquitectura MVC limpia en C++17} que separa la abstracción de
         hardware, los algoritmos de visión por computador y el renderizado en módulos
         independientes y comprobables.
 \end{enumerate}
 
+Como limitaciones a destacar: la tasa de 8\,FPS está dominada (54\%) por la latencia
+WiFi del modo snapshot HTTP; en producción se reemplazaría por streaming MJPEG o
+sincronización por hardware. La resolución de profundidad decrece con la distancia
+según $\Delta Z = Z^2/(f\cdot B)$, por lo que más allá de 1\,m la precisión cae a
+$\pm5$\,cm o más —límite físico de la línea base de 66,8\,mm, no del software.
+
 El sistema constituye una prueba de concepto funcional para la percepción métrica de
 profundidad en tiempo real con microcontroladores de bajo costo, y abre el camino
-hacia la Parte~II del proyecto (detección de vehículos con HOG+SVM e integración
-con bot de Telegram y YOLO).
+hacia la Parte~II del proyecto (detección de vehículos ecuatorianos con HOG+SVM,
+bot de Telegram con YOLO y comunicación API C++\,$\leftrightarrow$\,Python).
 
 % ============================================================
 % Referencias
@@ -996,6 +1245,33 @@ Springer, 2022.
 Espressif Systems,
 ``ESP32 Technical Reference Manual,'' versión 5.1,
 Espressif Systems, Shanghái, China, 2023.
+
+\bibitem{robles2026unidad1}
+V.~Robles Bykbaev,
+\textit{Visión Artificial — Unidad 1: Fundamentos, modelo pinhole y espacios de color}.
+Notas de clase, Universidad Politécnica Salesiana, 2026.
+
+\bibitem{robles2026parte2}
+V.~Robles Bykbaev,
+\textit{Visión Artificial — Parte 2: Transformaciones de intensidad y filtrado espacial}.
+Diapositivas de clase, Universidad Politécnica Salesiana, 2026.
+
+\bibitem{robles2026guia2}
+V.~Robles Bykbaev,
+\textit{Guía de Prácticas — Unidad 2: Segmentación, morfología y mezcla alfa}.
+Material de laboratorio, Universidad Politécnica Salesiana, 2026.
+
+\bibitem{chai1999face}
+D.~Chai y K.~N.~Ngan,
+``Face segmentation using skin-color map in videophone applications,''
+\textit{IEEE Transactions on Circuits and Systems for Video Technology},
+vol.~9, n.º~4, pp.~551--564, jun. 1999.
+
+\bibitem{tukey1977exploratory}
+J.~W.~Tukey,
+\textit{Exploratory Data Analysis}.
+Addison-Wesley, 1977.
+[Método IQR para detección de valores atípicos.]
 
 \end{thebibliography}
 
