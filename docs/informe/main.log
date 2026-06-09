@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.5.30)  8 JUN 2026 20:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.5.30)  8 JUN 2026 21:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1299,28 +1299,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [13]
-<figs/cap_30cm.png, id=380, 941.5175pt x 567.11874pt>
-File: figs/cap_30cm.png Graphic file (type png)
-<use figs/cap_30cm.png>
-Package pdftex.def Info: figs/cap_30cm.png  used on input line 928.
-(pdftex.def)             Requested size: 211.68661pt x 127.50967pt.
-<figs/cap_60cm.png, id=381, 952.55875pt x 571.13374pt>
-File: figs/cap_60cm.png Graphic file (type png)
-<use figs/cap_60cm.png>
-Package pdftex.def Info: figs/cap_60cm.png  used on input line 933.
-(pdftex.def)             Requested size: 211.68661pt x 126.92216pt.
-<figs/cap_90cm.png, id=382, 942.52126pt x 575.14874pt>
-File: figs/cap_90cm.png Graphic file (type png)
-<use figs/cap_90cm.png>
-Package pdftex.def Info: figs/cap_90cm.png  used on input line 939.
-(pdftex.def)             Requested size: 211.68661pt x 129.1747pt.
-<figs/cap_distorsion.png, id=383, 931.48pt x 586.19pt>
-File: figs/cap_distorsion.png Graphic file (type png)
-<use figs/cap_distorsion.png>
-Package pdftex.def Info: figs/cap_distorsion.png  used on input line 944.
-(pdftex.def)             Requested size: 211.68661pt x 133.21085pt.
-Package pgfplots info on input line 983: Using 'lua backend=false' for axis: x 
-coord trafo unsupported.
+Underfull \hbox (badness 1152) in paragraph at lines 909--910
+[]|\T1/lmr/m/n/10.95 (+20) Ruido de pro-ceso (ve-loci-dad de re-
+ []
+
+
+Underfull \hbox (badness 1038) in paragraph at lines 910--911
+[]|\T1/lmr/m/n/10.95 (+20) Ruido de medi-ción (agre-sivi-dad del
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1330,6 +1316,29 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [14]
+<figs/cap_30cm.png, id=400, 941.5175pt x 567.11874pt>
+File: figs/cap_30cm.png Graphic file (type png)
+<use figs/cap_30cm.png>
+Package pdftex.def Info: figs/cap_30cm.png  used on input line 980.
+(pdftex.def)             Requested size: 211.68661pt x 127.50967pt.
+<figs/cap_60cm.png, id=401, 952.55875pt x 571.13374pt>
+File: figs/cap_60cm.png Graphic file (type png)
+<use figs/cap_60cm.png>
+Package pdftex.def Info: figs/cap_60cm.png  used on input line 985.
+(pdftex.def)             Requested size: 211.68661pt x 126.92216pt.
+<figs/cap_90cm.png, id=402, 942.52126pt x 575.14874pt>
+File: figs/cap_90cm.png Graphic file (type png)
+<use figs/cap_90cm.png>
+Package pdftex.def Info: figs/cap_90cm.png  used on input line 991.
+(pdftex.def)             Requested size: 211.68661pt x 129.1747pt.
+<figs/cap_distorsion.png, id=403, 931.48pt x 586.19pt>
+File: figs/cap_distorsion.png Graphic file (type png)
+<use figs/cap_distorsion.png>
+Package pdftex.def Info: figs/cap_distorsion.png  used on input line 996.
+(pdftex.def)             Requested size: 211.68661pt x 133.21085pt.
+Package pgfplots info on input line 1035: Using 'lua backend=false' for axis: x
+ coord trafo unsupported.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1337,16 +1346,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[15 <./figs/cap_30cm.png (PNG copy)> <./figs/cap_60cm.png (PNG copy)> <./figs/c
+[15]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[16 <./figs/cap_30cm.png (PNG copy)> <./figs/cap_60cm.png (PNG copy)> <./figs/c
 ap_90cm.png (PNG copy)> <./figs/cap_distorsion.png (PNG copy)>]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[16]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1370,7 +1379,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[19]
+[19
+
+]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1378,20 +1389,28 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[20] (./main.aux)
+[20]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[21] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 0A971F83F2CAFB0EC9A5E735E88CA1F5;6932.
+(rerunfilecheck)             Checksum: EAD4AC37AE621F36640B4B18FEA8872B;7257.
  ) 
 Here is how much of TeX's memory you used:
- 41572 strings out of 469515
- 909313 string characters out of 5470807
- 1832783 words of memory out of 5000000
- 69071 multiletter control sequences out of 15000+600000
- 757329 words of font info for 276 fonts, out of 8000000 for 9000
+ 41617 strings out of 469515
+ 909916 string characters out of 5470807
+ 1832864 words of memory out of 5000000
+ 69098 multiletter control sequences out of 15000+600000
+ 757638 words of font info for 279 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  99i,20n,118p,1001b,2360s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf-dis
@@ -1410,10 +1429,10 @@ share/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf-dist/fonts/t
 ype1/public/lm/lmtk10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt10.p
 fb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></usr/share/texmf-di
 st/fonts/type1/public/lm/lmtti10.pfb>
-Output written on main.pdf (21 pages, 1511312 bytes).
+Output written on main.pdf (22 pages, 1517877 bytes).
 PDF statistics:
- 595 PDF objects out of 1000 (max. 8388607)
- 507 compressed objects within 6 object streams
- 189 named destinations out of 1000 (max. 500000)
- 80633 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 616 PDF objects out of 1000 (max. 8388607)
+ 527 compressed objects within 6 object streams
+ 201 named destinations out of 1000 (max. 500000)
+ 80641 words of extra memory for PDF output out of 89155 (max. 10000000)
 

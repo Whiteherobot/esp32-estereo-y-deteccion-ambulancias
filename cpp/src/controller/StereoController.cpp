@@ -127,7 +127,43 @@ int StereoController::run() {
 
     ProcessorResult result;
 
+    // Config activa — se compara cada frame para detectar cambios en trackbars
+    ProcessorConfig activeCfg;
+    double          activeKQ = 0.0, activeKR = 0.0;
+    display_.readConfig(activeCfg, activeKQ, activeKR);
+
     while (true) {
+        // ------------------------------------------------------------------
+        // 0. Leer trackbars y reconfigurar si cambiaron
+        // ------------------------------------------------------------------
+        ProcessorConfig newCfg;
+        double newKQ, newKR;
+        display_.readConfig(newCfg, newKQ, newKR);
+
+        // Reconstruir SGBM/CLAHE/WLS solo si cambió algún parámetro
+        if (newCfg.numDisp           != activeCfg.numDisp           ||
+            newCfg.blockSize         != activeCfg.blockSize         ||
+            newCfg.uniquenessRatio   != activeCfg.uniquenessRatio   ||
+            newCfg.speckleWindowSize != activeCfg.speckleWindowSize ||
+            newCfg.speckleRange      != activeCfg.speckleRange      ||
+            newCfg.claheClipLimit    != activeCfg.claheClipLimit    ||
+            newCfg.wlsLambda         != activeCfg.wlsLambda         ||
+            newCfg.wlsSigma          != activeCfg.wlsSigma)
+        {
+            processor_.reconfigure(newCfg);
+        }
+
+        // Actualizar ruido de Kalman en vivo
+        if (newKQ != activeKQ || newKR != activeKR) {
+            kalmanCenter_.setNoise(newKQ, newKR);
+            kalmanClick_.setNoise(newKQ, newKR);
+        }
+
+        activeCfg = newCfg;
+        activeKQ  = newKQ;
+        activeKR  = newKR;
+        display_.updateControlsTitle(activeCfg, activeKQ, activeKR);
+
         // ------------------------------------------------------------------
         // 1. MODELO — Adquisición del par estéreo
         // ------------------------------------------------------------------

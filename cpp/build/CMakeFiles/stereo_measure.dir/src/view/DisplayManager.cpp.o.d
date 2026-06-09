@@ -49,7 +49,8 @@ CMakeFiles/stereo_measure.dir/src/view/DisplayManager.cpp.o: \
  /usr/include/bits/pthreadtypes-arch.h \
  /usr/include/bits/atomic_wide_counter.h /usr/include/bits/struct_mutex.h \
  /usr/include/bits/struct_rwlock.h /usr/include/alloca.h \
- /usr/include/bits/stdlib-float.h /usr/include/c++/16.1.1/bits/std_abs.h \
+ /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
+ /usr/include/c++/16.1.1/bits/std_abs.h \
  /usr/include/opencv4/opencv2/core/base.hpp \
  /usr/include/c++/16.1.1/climits \
  /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/limits.h \
@@ -128,11 +129,11 @@ CMakeFiles/stereo_measure.dir/src/view/DisplayManager.cpp.o: \
  /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__fpos64_t.h \
  /usr/include/bits/types/struct_FILE.h \
  /usr/include/bits/types/cookie_io_functions_t.h \
- /usr/include/bits/stdio_lim.h /usr/include/c++/16.1.1/cerrno \
- /usr/include/errno.h /usr/include/bits/errno.h \
- /usr/include/linux/errno.h /usr/include/asm/errno.h \
- /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/bits/types/error_t.h \
+ /usr/include/bits/stdio_lim.h /usr/include/bits/stdio.h \
+ /usr/include/c++/16.1.1/cerrno /usr/include/errno.h \
+ /usr/include/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
+ /usr/include/asm-generic/errno-base.h /usr/include/bits/types/error_t.h \
  /usr/include/c++/16.1.1/bits/charconv.h \
  /usr/include/c++/16.1.1/bits/basic_string.tcc \
  /usr/include/c++/16.1.1/bits/memory_resource.h \
@@ -370,4 +371,33 @@ CMakeFiles/stereo_measure.dir/src/view/DisplayManager.cpp.o: \
  /usr/include/opencv4/opencv2/stitching/detail/camera.hpp \
  /usr/include/opencv4/opencv2/video.hpp \
  /usr/include/opencv4/opencv2/video/tracking.hpp \
- /usr/include/opencv4/opencv2/video/background_segm.hpp
+ /usr/include/opencv4/opencv2/video/background_segm.hpp \
+ /home/ing_michi/Documents/Vision\ del\ computador/Proyecto\ Integrador\ Michael\ Lata/cpp/src/view/../../include/view/../model/StereoProcessor.hpp \
+ /usr/include/opencv4/opencv2/ximgproc.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/edge_filter.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/disparity_filter.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/sparse_match_interpolator.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/structured_edge_detection.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/edgeboxes.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/edge_drawing.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/scansegment.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/seeds.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/segmentation.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/fast_hough_transform.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/estimated_covariance.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/weighted_median_filter.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/slic.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/lsc.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/paillou_filter.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/fast_line_detector.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/deriche_filter.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/peilin.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/fourier_descriptors.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/ridgefilter.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/brightedges.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/run_length_morphology.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/edgepreserving_filter.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/color_match.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/radon_transform.hpp \
+ /usr/include/opencv4/opencv2/ximgproc/find_ellipses.hpp \
+ /home/ing_michi/Documents/Vision\ del\ computador/Proyecto\ Integrador\ Michael\ Lata/cpp/src/view/../../include/view/../model/StereoCalibration.hpp

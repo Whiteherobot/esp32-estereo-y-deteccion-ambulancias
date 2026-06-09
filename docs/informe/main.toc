@@ -18,11 +18,12 @@
 \contentsline {subsection}{\numberline {4.11}Segmentación de Piel en YCrCb (HandDetector)}{11}{subsection.4.11}%
 \contentsline {subsection}{\numberline {4.12}Corrección de Escala VGA/QVGA en Calibración}{11}{subsection.4.12}%
 \contentsline {subsection}{\numberline {4.13}Efecto de Realidad Aumentada: Distorsión Sinusoidal y Aura de Energía}{12}{subsection.4.13}%
-\contentsline {section}{\numberline {5}Resultados y Evaluación}{14}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Tasa de Fotogramas (FPS)}{14}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Sistema en Funcionamiento}{14}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Exactitud de Medición de Distancia}{14}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Estabilización con el Filtro de Kalman}{16}{subsection.5.4}%
-\contentsline {subsection}{\numberline {5.5}Efecto Visual AR}{16}{subsection.5.5}%
-\contentsline {section}{\numberline {6}Video-Blog de Demostración}{18}{section.6}%
-\contentsline {section}{\numberline {7}Conclusiones}{18}{section.7}%
+\contentsline {subsection}{\numberline {4.14}Controles Interactivos de Ajuste Fino (Trackbars)}{14}{subsection.4.14}%
+\contentsline {section}{\numberline {5}Resultados y Evaluación}{15}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Tasa de Fotogramas (FPS)}{15}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Sistema en Funcionamiento}{15}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Exactitud de Medición de Distancia}{15}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Estabilización con el Filtro de Kalman}{17}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Efecto Visual AR}{17}{subsection.5.5}%
+\contentsline {section}{\numberline {6}Video-Blog de Demostración}{19}{section.6}%
+\contentsline {section}{\numberline {7}Conclusiones}{19}{section.7}%

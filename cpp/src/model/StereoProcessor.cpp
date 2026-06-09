@@ -14,26 +14,31 @@ bool StereoProcessor::init(const StereoCalibration& calib, const ProcessorConfig
     calib_  = &calib;
     width_  = calib.width;
     height_ = calib.height;
+    return reconfigure(cfg);
+}
 
+bool StereoProcessor::reconfigure(const ProcessorConfig& cfg) {
     // Normalizar parámetros SGBM
-    int numDisp  = std::max(16, cfg.numDisp);
-    numDisp = ((numDisp + 15) / 16) * 16;          // debe ser múltiplo de 16
-    int blockSz  = std::max(3, cfg.blockSize);
-    if (blockSz % 2 == 0) ++blockSz;               // debe ser impar
+    int numDisp = std::max(16, cfg.numDisp);
+    numDisp = ((numDisp + 15) / 16) * 16;
+    int blockSz = std::max(3, cfg.blockSize);
+    if (blockSz % 2 == 0) ++blockSz;
 
-    // Crear el matcher SGBM.
     // P1 y P2 controlan la suavidad del mapa de disparidad resultante.
     // La relación P2 = 4*P1 es la recomendación estándar de Hirschmuller.
     sgbm_ = StereoSGBM::create(cfg.minDisp, numDisp, blockSz);
     sgbm_->setP1(8  * 3 * blockSz * blockSz);
     sgbm_->setP2(32 * 3 * blockSz * blockSz);
+    sgbm_->setUniquenessRatio(cfg.uniquenessRatio);
+    sgbm_->setSpeckleWindowSize(cfg.speckleWindowSize);
+    sgbm_->setSpeckleRange(std::max(1, cfg.speckleRange));
     sgbm_->setMode(StereoSGBM::MODE_SGBM_3WAY);
 
     useCLAHE_ = cfg.useCLAHE;
     if (useCLAHE_) {
-        // clipLimit=2.0: limita la amplificación máxima del histograma.
-        // tileSize=8×8: divide la imagen en teselas para ecualización local.
-        clahe_ = createCLAHE(2.0, Size(8, 8));
+        // clipLimit: limita la amplificación máxima del histograma local.
+        // tileSize 8×8: divide la imagen en teselas para ecualización local.
+        clahe_ = createCLAHE(cfg.claheClipLimit, Size(8, 8));
     }
 
     useWLS_ = cfg.useWLS;
@@ -50,10 +55,11 @@ bool StereoProcessor::init(const StereoCalibration& calib, const ProcessorConfig
         }
     }
 
-    std::cout << "[StereoProcessor] SGBM minDisp=" << cfg.minDisp
-              << " numDisp=" << numDisp << " blockSize=" << blockSz << std::endl;
-    std::cout << "[StereoProcessor] CLAHE=" << (useCLAHE_ ? "ON" : "OFF")
-              << "  WLS=" << (useWLS_ ? "ON" : "OFF") << std::endl;
+    std::cout << "[StereoProcessor] numDisp=" << numDisp
+              << " blockSize=" << blockSz
+              << " uniqueness=" << cfg.uniquenessRatio
+              << " CLAHE clip=" << cfg.claheClipLimit
+              << " WLS lambda=" << cfg.wlsLambda << std::endl;
     return true;
 }
 

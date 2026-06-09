@@ -24,13 +24,17 @@
 #include "StereoCalibration.hpp"
 
 struct ProcessorConfig {
-    int    minDisp       = 0;
-    int    numDisp       = 192;   // múltiplo de 16; cubre hasta ~23cm con VGA+baseline 6.7cm
-    int    blockSize     = 5;     // impar, ≥ 3
-    bool   useCLAHE     = true;
-    bool   useWLS       = true;
-    double wlsLambda    = 8000.0;
-    double wlsSigma     = 1.5;
+    int    minDisp           = 0;
+    int    numDisp           = 192;    // múltiplo de 16
+    int    blockSize         = 5;      // impar, ≥ 3
+    int    uniquenessRatio   = 10;
+    int    speckleWindowSize = 100;
+    int    speckleRange      = 32;
+    bool   useCLAHE          = true;
+    double claheClipLimit    = 2.0;
+    bool   useWLS            = true;
+    double wlsLambda         = 8000.0;
+    double wlsSigma          = 1.5;
 };
 
 struct ProcessorResult {
@@ -49,6 +53,12 @@ public:
      * Crea los objetos SGBM, CLAHE y WLS internamente.
      */
     bool init(const StereoCalibration& calib, const ProcessorConfig& cfg);
+
+    /**
+     * Reconfigura SGBM/CLAHE/WLS con nuevos parámetros sin recargar la calibración.
+     * Llamar cuando los trackbars cambian algún parámetro del algoritmo.
+     */
+    bool reconfigure(const ProcessorConfig& cfg);
 
     /**
      * Procesa un par de imágenes crudas y llena el resultado.

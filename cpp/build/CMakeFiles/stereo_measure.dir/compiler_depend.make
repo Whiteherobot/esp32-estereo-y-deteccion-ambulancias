@@ -56,7 +56,9 @@ CMakeFiles/stereo_measure.dir/src/controller/StereoController.cpp.o: /home/ing_m
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
+  /usr/include/bits/stdio.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
@@ -545,7 +547,9 @@ CMakeFiles/stereo_measure.dir/src/main.cpp.o: /home/ing_michi/Documents/Vision\ 
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
+  /usr/include/bits/stdio.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
@@ -1034,7 +1038,9 @@ CMakeFiles/stereo_measure.dir/src/model/CameraSource.cpp.o: /home/ing_michi/Docu
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
+  /usr/include/bits/stdio.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
@@ -1499,7 +1505,9 @@ CMakeFiles/stereo_measure.dir/src/model/HandDetector.cpp.o: /home/ing_michi/Docu
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
+  /usr/include/bits/stdio.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
@@ -1950,7 +1958,9 @@ CMakeFiles/stereo_measure.dir/src/model/StereoCalibration.cpp.o: /home/ing_michi
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
+  /usr/include/bits/stdio.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
@@ -2398,7 +2408,9 @@ CMakeFiles/stereo_measure.dir/src/model/StereoProcessor.cpp.o: /home/ing_michi/D
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
+  /usr/include/bits/stdio.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
@@ -2872,7 +2884,9 @@ CMakeFiles/stereo_measure.dir/src/view/ARRenderer.cpp.o: /home/ing_michi/Documen
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
+  /usr/include/bits/stdio.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
@@ -3272,6 +3286,8 @@ CMakeFiles/stereo_measure.dir/src/view/ARRenderer.cpp.o: /home/ing_michi/Documen
   /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/xmmintrin.h
 
 CMakeFiles/stereo_measure.dir/src/view/DisplayManager.cpp.o: /home/ing_michi/Documents/Vision\ del\ computador/Proyecto\ Integrador\ Michael\ Lata/cpp/src/view/DisplayManager.cpp \
+  /home/ing_michi/Documents/Vision\ del\ computador/Proyecto\ Integrador\ Michael\ Lata/cpp/include/model/StereoCalibration.hpp \
+  /home/ing_michi/Documents/Vision\ del\ computador/Proyecto\ Integrador\ Michael\ Lata/cpp/include/model/StereoProcessor.hpp \
   /home/ing_michi/Documents/Vision\ del\ computador/Proyecto\ Integrador\ Michael\ Lata/cpp/include/view/DisplayManager.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
@@ -3319,7 +3335,9 @@ CMakeFiles/stereo_measure.dir/src/view/DisplayManager.cpp.o: /home/ing_michi/Doc
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
+  /usr/include/bits/stdio.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
@@ -3692,6 +3710,33 @@ CMakeFiles/stereo_measure.dir/src/view/DisplayManager.cpp.o: /home/ing_michi/Doc
   /usr/include/opencv4/opencv2/video/background_segm.hpp \
   /usr/include/opencv4/opencv2/video/tracking.hpp \
   /usr/include/opencv4/opencv2/videoio.hpp \
+  /usr/include/opencv4/opencv2/ximgproc.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/brightedges.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/color_match.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/deriche_filter.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/disparity_filter.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/edge_drawing.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/edge_filter.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/edgeboxes.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/edgepreserving_filter.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/estimated_covariance.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/fast_hough_transform.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/fast_line_detector.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/find_ellipses.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/fourier_descriptors.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/lsc.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/paillou_filter.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/peilin.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/radon_transform.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/ridgefilter.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/run_length_morphology.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/scansegment.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/seeds.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/segmentation.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/slic.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/sparse_match_interpolator.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/structured_edge_detection.hpp \
+  /usr/include/opencv4/opencv2/ximgproc/weighted_median_filter.hpp \
   /usr/include/pthread.h \
   /usr/include/sched.h \
   /usr/include/stdc-predef.h \
@@ -4504,11 +4549,11 @@ CMakeFiles/stereo_measure.dir/src/model/HandDetector.cpp.o:
 
 /usr/lib/libQt6Core.so.6:
 
-/usr/include/c++/16.1.1/map:
+/usr/lib/libOpenEXRCore-3_4.so.33:
 
-/usr/lib/libmount.so.1:
+/usr/lib/libvulkan.so.1:
 
-/usr/lib/libGLdispatch.so.0:
+/usr/lib/libOpenEXR-3_4.so.33:
 
 /usr/include/c++/16.1.1/iostream:
 
@@ -4530,15 +4575,17 @@ CMakeFiles/stereo_measure.dir/src/model/HandDetector.cpp.o:
 
 /usr/include/c++/16.1.1/ext/alloc_traits.h:
 
-/usr/lib/libabsl_throw_delegate.so.2601.0.0:
-
-/usr/include/c++/16.1.1/ext/aligned_buffer.h:
-
 /usr/include/c++/16.1.1/functional:
 
 /usr/lib/libSPIRV-Tools-opt.so:
 
 /usr/include/c++/16.1.1/debug/debug.h:
+
+/usr/lib/libabsl_throw_delegate.so.2601.0.0:
+
+/usr/include/c++/16.1.1/ext/aligned_buffer.h:
+
+/usr/include/bits/stdio.h:
 
 /usr/include/c++/16.1.1/debug/assertions.h:
 
@@ -4553,8 +4600,6 @@ CMakeFiles/stereo_measure.dir/src/model/HandDetector.cpp.o:
 /usr/include/c++/16.1.1/cstdio:
 
 /usr/include/stdio.h:
-
-/usr/include/c++/16.1.1/clocale:
 
 /usr/lib/libwebp.so.7:
 
@@ -4642,16 +4687,6 @@ CMakeFiles/stereo_measure.dir/src/model/HandDetector.cpp.o:
 
 /usr/include/opencv4/opencv2/flann/index_testing.h:
 
-/usr/lib32/libgomp.so.1:
-
-/usr/lib/libabsl_leak_check.so.2601.0.0:
-
-/usr/lib/libabsl_demangle_internal.so.2601.0.0:
-
-/usr/include/c++/16.1.1/locale:
-
-/usr/include/opencv4/opencv2/flann/matrix.h:
-
 /usr/include/c++/16.1.1/complex:
 
 /usr/lib/librubberband.so.3:
@@ -4736,15 +4771,17 @@ CMakeFiles/stereo_measure.dir/src/model/HandDetector.cpp.o:
 
 /usr/include/c++/16.1.1/bits/exception_ptr.h:
 
-/usr/include/c++/16.1.1/bits/postypes.h:
-
-/usr/include/c++/16.1.1/bits/shared_ptr.h:
+/usr/include/c++/16.1.1/bits/exception.h:
 
 /usr/include/c++/16.1.1/bits/range_access.h:
 
 /usr/include/bits/types/__FILE.h:
 
 /usr/include/features.h:
+
+/usr/include/c++/16.1.1/clocale:
+
+/usr/include/bits/stdlib-bsearch.h:
 
 /usr/include/bits/types/struct_timeval.h:
 
@@ -4817,6 +4854,10 @@ CMakeFiles/stereo_measure.dir/src/model/StereoProcessor.cpp.o:
 /usr/lib/libabsl_log_internal_conditions.so.2601.0.0:
 
 /usr/include/bits/mathcalls-narrow.h:
+
+/usr/include/c++/16.1.1/bits/postypes.h:
+
+/usr/include/c++/16.1.1/bits/shared_ptr.h:
 
 /usr/include/c++/16.1.1/bits/locale_classes.tcc:
 
@@ -4952,6 +4993,12 @@ CMakeFiles/stereo_measure.dir/src/model/StereoProcessor.cpp.o:
 
 /usr/include/opencv4/opencv2/ximgproc/paillou_filter.hpp:
 
+/usr/lib/libgnutls.so.30:
+
+/usr/include/c++/16.1.1/bits/erase_if.h:
+
+/usr/include/opencv4/opencv2/flann/params.h:
+
 /usr/lib/libva-x11.so.2:
 
 /usr/include/assert.h:
@@ -5074,12 +5121,6 @@ CMakeFiles/stereo_measure.dir/src/view/ARRenderer.cpp.o:
 
 /usr/lib/libOpenCL.so.1:
 
-/usr/include/c++/16.1.1/bits/istream.tcc:
-
-/usr/include/opencv4/opencv2/ximgproc/find_ellipses.hpp:
-
-/usr/include/bits/struct_mutex.h:
-
 /usr/include/bits/typesizes.h:
 
 /usr/include/c++/16.1.1/bits/stl_multiset.h:
@@ -5095,12 +5136,6 @@ CMakeFiles/stereo_measure.dir/src/view/ARRenderer.cpp.o:
 /usr/include/c++/16.1.1/bits/stl_construct.h:
 
 /usr/include/bits/libm-simd-decl-stubs.h:
-
-/usr/lib/libgnutls.so.30:
-
-/usr/include/c++/16.1.1/bits/erase_if.h:
-
-/usr/include/opencv4/opencv2/flann/params.h:
 
 /usr/lib/libxcb-xfixes.so.0:
 
@@ -5129,6 +5164,12 @@ CMakeFiles/stereo_measure.dir/src/view/ARRenderer.cpp.o:
 /usr/include/bits/atomic_wide_counter.h:
 
 /usr/include/bits/floatn-common.h:
+
+/usr/include/c++/16.1.1/bits/istream.tcc:
+
+/usr/include/opencv4/opencv2/ximgproc/find_ellipses.hpp:
+
+/usr/include/bits/struct_mutex.h:
 
 /usr/include/bits/thread-shared-types.h:
 
@@ -5322,7 +5363,21 @@ CMakeFiles/stereo_measure.dir/src/model/StereoCalibration.cpp.o:
 
 /usr/include/c++/16.1.1/bits/chrono.h:
 
-/usr/include/c++/16.1.1/bits/exception.h:
+/usr/lib32/libgomp.so.1:
+
+/usr/lib/libabsl_leak_check.so.2601.0.0:
+
+/usr/lib/libabsl_demangle_internal.so.2601.0.0:
+
+/usr/include/opencv4/opencv2/flann/matrix.h:
+
+/usr/include/c++/16.1.1/locale:
+
+/usr/lib/libmount.so.1:
+
+/usr/lib/libGLdispatch.so.0:
+
+/usr/include/c++/16.1.1/map:
 
 /usr/lib/libssh2.so.1:
 
@@ -5507,10 +5562,6 @@ CMakeFiles/stereo_measure.dir/src/model/StereoCalibration.cpp.o:
 /usr/include/c++/16.1.1/bits/unique_lock.h:
 
 /usr/include/time.h:
-
-/usr/lib/libvulkan.so.1:
-
-/usr/lib/libOpenEXR-3_4.so.33:
 
 /usr/include/opencv4/opencv2/core/cuda_types.hpp:
 
@@ -5867,5 +5918,3 @@ CMakeFiles/stereo_measure.dir/src/model/StereoCalibration.cpp.o:
 /usr/include/opencv4/opencv2/core/saturate.hpp:
 
 /usr/lib/ld-linux-x86-64.so.2:
-
-/usr/lib/libOpenEXRCore-3_4.so.33:

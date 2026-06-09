@@ -25,6 +25,7 @@
 #pragma once
 
 #include <opencv2/opencv.hpp>
+#include "../model/StereoProcessor.hpp"
 #include <string>
 
 struct HUDData {
@@ -38,7 +39,7 @@ struct HUDData {
 
 class DisplayManager {
 public:
-    /** Crea las tres ventanas de OpenCV. */
+    /** Crea las ventanas de imagen y la ventana de controles con trackbars. */
     void init();
 
     /** Destruye todas las ventanas. */
@@ -47,14 +48,18 @@ public:
     /**
      * Muestra los tres frames en sus ventanas correspondientes.
      * Dibuja el HUD sobre leftDisplay antes de mostrarlo.
-     *
-     * @param leftDisplay  Imagen izquierda con AR ya dibujado (se le añade HUD)
-     * @param rightRect    Imagen derecha rectificada
-     * @param disparity    Mapa de disparidad CV_32F (se colorea aquí)
-     * @param hud          Datos para el HUD
      */
     void show(cv::Mat& leftDisplay, const cv::Mat& rightRect,
               const cv::Mat& disparity, const HUDData& hud);
+
+    /**
+     * Lee los valores actuales de los trackbars y los convierte a
+     * ProcessorConfig y parámetros de Kalman listos para usar.
+     */
+    void readConfig(ProcessorConfig& pc, double& kq, double& kr) const;
+
+    /** Actualiza el título de la ventana de controles con los valores reales. */
+    void updateControlsTitle(const ProcessorConfig& pc, double kq, double kr) const;
 
 private:
     static void drawHUD(cv::Mat& img, const HUDData& hud);
@@ -62,4 +67,17 @@ private:
     const std::string WIN_LEFT  = "Camara Izquierda (Rectificada)";
     const std::string WIN_RIGHT = "Camara Derecha (Rectificada)";
     const std::string WIN_DISP  = "Mapa de Disparidad";
+    const std::string WIN_CTRL  = "Controles - SGBM / Kalman";
+
+    // Almacén entero de cada trackbar (OpenCV exige int*)
+    mutable int tb_numDispIdx_   = 12;  // ×16 → 192
+    mutable int tb_blockIdx_     = 1;   // ×2+3 → 5
+    mutable int tb_uniqueness_   = 10;
+    mutable int tb_speckleWin_   = 100;
+    mutable int tb_speckleRange_ = 32;
+    mutable int tb_clipX10_      = 20;  // ÷10 → 2.0
+    mutable int tb_wlsLambdaK_   = 8;   // ×1000 → 8000
+    mutable int tb_wlsSigmaX10_  = 15;  // ÷10 → 1.5
+    mutable int tb_kalmanQ_      = 10;  // ×1e-4 → 0.001
+    mutable int tb_kalmanR_      = 10;  // ×1e-3 → 0.01
 };

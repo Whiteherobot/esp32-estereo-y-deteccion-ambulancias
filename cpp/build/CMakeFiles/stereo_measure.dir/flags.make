@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I"/home/ing_michi/Documents/Vision del computador/Proyecto Integrador Michael Lata/cpp/include" -isystem /usr/include/opencv4
 
-CXX_FLAGS = -g -std=gnu++17
+CXX_FLAGS = -O3 -DNDEBUG -std=gnu++17
 

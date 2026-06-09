@@ -38,6 +38,9 @@ public:
     /** Reinicia el filtro (útil al cambiar de punto de medición). */
     void reset();
 
+    /** Actualiza los parámetros de ruido en vivo (desde trackbars). */
+    void setNoise(double q, double r) { q_ = q; r_ = r; }
+
 private:
     double q_;            // ruido de proceso
     double r_;            // ruido de medición
