@@ -1,0 +1,522 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2cm]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{mdframed}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+% ── Institutional colors ─────────────────────────────────────────────────────
+\definecolor{salesiana}{RGB}{0,84,166}
+\definecolor{cppbg}{RGB}{245,245,245}
+\definecolor{kw}{RGB}{0,0,180}
+\definecolor{cm}{RGB}{80,120,80}
+\definecolor{str}{RGB}{160,0,0}
+\definecolor{rubgreen}{RGB}{0,120,60}
+
+\hypersetup{colorlinks=true, linkcolor=salesiana, urlcolor=salesiana}
+
+% ── Section colors ────────────────────────────────────────────────────────────
+\titleformat{\section}{\large\bfseries\color{salesiana}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{salesiana!80!black}}{\thesubsection.}{0.5em}{}
+
+% ── Code style ───────────────────────────────────────────────────────────────
+\lstset{
+  backgroundcolor=\color{cppbg},
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{kw}\bfseries,
+  commentstyle=\color{cm}\itshape,
+  stringstyle=\color{str},
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{gray!40},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=6pt,
+  tabsize=4,
+  showstringspaces=false,
+  language=C++
+}
+
+% ── Header/footer ────────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\textbf{Defense Guide --- Stereo Vision System}}
+\rhead{\small Michael Lata $\cdot$ Jordy Romero --- G8}
+\cfoot{\small\thepage}
+
+% ── Criterion boxes ──────────────────────────────────────────────────────────
+\newmdenv[linecolor=rubgreen,linewidth=1.5pt,
+          frametitle={\color{rubgreen}\bfseries},
+          frametitlebelowskip=4pt,
+          innertopmargin=8pt]{critbox}
+
+% =============================================================================
+\begin{document}
+
+% ── COVER PAGE (Spanish, institutional) ──────────────────────────────────────
+\begin{titlepage}
+\centering
+\vspace*{0.8cm}
+{\color{salesiana}\rule{\linewidth}{2pt}}\\[0.35cm]
+{\Large\bfseries UNIVERSIDAD POLIT\'ECNICA SALESIANA}\\[0.15cm]
+{\normalsize CARRERA DE INGENIER\'IA EN CIENCIAS DE LA COMPUTACI\'ON}\\[0.2cm]
+{\color{salesiana}\rule{\linewidth}{1pt}}
+
+\vspace{2.0cm}
+
+\parbox{0.80\textwidth}{\centering\LARGE\bfseries\color{salesiana}
+  Sistema de Estimaci\'on de Profundidad Estereoscp\'opica
+  en Tiempo Real con Realidad Aumentada\\[0.3cm]
+  \large mediante Microcontroladores ESP32-CAM
+}
+
+\vspace{1.4cm}
+
+{\large\bfseries Gu\'ia de Defensa --- Visi\'on Artificial (G8)}\\[0.2cm]
+{\normalsize Proyecto Integrador Final --- Parte I}
+
+\vspace{1.6cm}
+
+\begin{tabular}{@{}ll@{}}
+\textbf{Autores:}    & Michael Lata $\cdot$ Jordy Romero \\[0.25cm]
+\textbf{Docente:}    & Vladimir Robles Bykbaev \\[0.25cm]
+\textbf{Asignatura:} & Visi\'on Artificial \\[0.25cm]
+\textbf{Per\'iodo:}  & Abril -- Agosto 2026 \\[0.25cm]
+\textbf{Fecha:}      & Junio 2026 \\
+\end{tabular}
+
+\vfill
+{\color{salesiana}\rule{\linewidth}{2pt}}
+\end{titlepage}
+
+% ── Rubric overview ──────────────────────────────────────────────────────────
+\begin{center}
+{\large\bfseries\color{salesiana} DEFENSE GUIDE --- INTEGRATING PROJECT (Part I)}\\[6pt]
+{\normalsize Real-Time Stereoscopic Depth Estimation System with Augmented Reality}
+\end{center}
+
+\vspace{4pt}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Criterion} & \textbf{Weight} & \textbf{Main file(s)} \\
+\midrule
+1. Capture Architecture \& Hardware & 20\% & \texttt{ESP32\_CAM\_Stereo.ino, CameraSource.cpp} \\
+2. Disparity Map Quality            & 25\% & \texttt{StereoProcessor.cpp} \\
+3. Distance Precision \& Stability  & 20\% & \texttt{KalmanDepth.cpp, StereoProcessor.cpp} \\
+4. Augmented Reality (AR) Effect    & 15\% & \texttt{ARRenderer.cpp} \\
+5. Individual Oral Defense          & 20\% & (key questions) \\
+\midrule
+\textbf{Total} & \textbf{100\%} & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{4pt}
+\noindent\textbf{Note:} the 85\% weighting applies with ESP32-CAM-MB/XIAO-SP cameras;
+this project uses ESP32-CAM AI-Thinker (\textbf{20\% weighting}).
+
+% =============================================================================
+\section{Criterion 1 --- Capture Architecture \& Hardware (20\%)}
+% =============================================================================
+
+\subsection*{What the rubric requires}
+System built in OpenCV/C++ and communicating with ESP32-CAM microcontrollers whose
+firmware parameters (AEC, AGC, AWB, XCLK) were deliberately tuned. C++ uses
+\textbf{concurrent threads} for reading both cameras, reducing latency and network jitter.
+
+\subsection*{ESP32-CAM Firmware --- \texttt{ESP32\_CAM\_Stereo.ino}}
+
+\begin{critbox}[frametitle={Why AEC / AGC / AWB = OFF}]
+SGBM computes disparity by comparing the intensity of corresponding pixels in the
+left and right frames. If each camera adjusts its own exposure (AEC) independently,
+the same physical point produces different pixel values in L and R, introducing
+systematic errors in the disparity map (ghosting, black holes).
+With the \textbf{same fixed exposure on both cameras}, photometric parity is guaranteed.
+\end{critbox}
+
+\begin{lstlisting}[caption={Fixed firmware parameters (lines 52--58)}]
+constexpr int  CAMERA_XCLK_HZ  = 6000000; // 6 MHz - reduces WiFi jitter
+constexpr bool CAMERA_AEC      = false;   // AUTO-EXPOSURE OFF -> manual
+constexpr bool CAMERA_AGC      = false;   // AUTO-GAIN     OFF -> manual
+constexpr bool CAMERA_AWB      = false;   // AUTO-BALANCE  OFF -> fixed color
+constexpr int  CAMERA_EXPOSURE = 400;     // 0-1200; tuned per environment
+constexpr int  CAMERA_GAIN     = 0;       // 0-30; minimum = less noise
+\end{lstlisting}
+
+\begin{critbox}[frametitle={Why XCLK = 6 MHz instead of the default 20 MHz}]
+At higher clock frequencies, the sensor draws more current and generates more heat,
+increasing jitter in the WiFi transmission. At 6 MHz the ESP32 prioritizes packet
+integrity over speed, reducing the frame de-synchronization between L and R that
+would otherwise degrade triangulation.
+\end{critbox}
+
+Parameters can be updated \textbf{at runtime without re-flashing} via HTTP:
+\texttt{GET /setexposure?v=400} and \texttt{GET /setgain?v=0}.
+
+\subsection*{Concurrent threads --- \texttt{CameraSource.cpp}}
+
+\begin{lstlisting}[caption={Producer thread for HTTP camera frames}]
+// Constructor launches the worker thread immediately
+HttpCameraSource::HttpCameraSource(std::string url, int timeoutMs)
+    : url_(url), timeoutMs_(timeoutMs) {
+    worker_ = std::thread(&HttpCameraSource::workerLoop, this);
+}
+// Worker continuously downloads JPEG from /capture
+void HttpCameraSource::workerLoop() {
+    while (running_.load()) {
+        // ... libcurl downloads JPEG ...
+        {
+            std::lock_guard<std::mutex> lk(mutex_);
+            latestFrame_ = decoded;   // protected shared write
+            hasFrame_    = true;
+        }
+        framesReceived_.fetch_add(1);
+    }
+}
+// Main loop reads without blocking
+bool HttpCameraSource::read(cv::Mat& out) {
+    std::lock_guard<std::mutex> lk(mutex_);
+    if (!hasFrame_) return false;
+    out = latestFrame_.clone();
+    return true;
+}
+\end{lstlisting}
+
+\begin{itemize}[leftmargin=*]
+  \item Left and right cameras each have their own dedicated producer thread.
+  \item The main (controller) thread consumes the latest frame without waiting.
+  \item \texttt{mutex\_} protects the shared frame between producer and consumer.
+  \item \texttt{std::atomic<bool> running\_} stops the thread cleanly without a data race.
+\end{itemize}
+
+% =============================================================================
+\section{Criterion 2 --- Disparity Map Quality (25\%)}
+% =============================================================================
+
+\subsection*{What the rubric requires}
+Dense map, defined edges, low noise. Justified application of preprocessing (CLAHE)
+and postprocessing (WLS) filters coupled to SGBM.
+
+\subsection*{Full pipeline --- \texttt{StereoProcessor.cpp}}
+
+\[
+\text{Raw frame}
+\xrightarrow{\text{remap}} \text{Rectified}
+\xrightarrow{\text{cvtColor}} \text{Grayscale}
+\xrightarrow{\text{CLAHE}} \text{Enhanced contrast}
+\xrightarrow{\text{SGBM}} \text{Q16.4 disparity}
+\xrightarrow{\text{WLS}} \text{Filtered disparity}
+\xrightarrow{\text{reproject}} \text{3D point cloud}
+\]
+
+\begin{lstlisting}[caption={Step 1: Rectification (lens distortion correction)}]
+// remap applies the pre-computed calibration maps to remove lens
+// distortion and align epipolar lines horizontally
+cv::remap(rawLeft,  result.leftRect,  calib_->map1x, calib_->map1y, INTER_LINEAR);
+cv::remap(rawRight, result.rightRect, calib_->map2x, calib_->map2y, INTER_LINEAR);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Step 3: CLAHE preprocessing (lines 88--92)}]
+// clipLimit=2.0: caps the maximum amplification of the local histogram
+// tileSize 8x8: divides the image into tiles for local equalization
+clahe_ = createCLAHE(cfg.claheClipLimit, Size(8, 8));
+clahe_->apply(grayL, grayL);
+clahe_->apply(grayR, grayR);
+\end{lstlisting}
+
+\begin{critbox}[frametitle={Why CLAHE before SGBM}]
+SGBM finds correspondences by comparing block intensity. In areas with uneven
+lighting or shadows, local contrast is low and the left block does not look like its
+right counterpart. CLAHE equalizes the histogram \textbf{locally} without saturating
+bright areas, improving discrimination at edges and fine textures.
+\end{critbox}
+
+\begin{lstlisting}[caption={Step 4: SGBM -- key parameters (lines 29--35)}]
+sgbm_ = StereoSGBM::create(cfg.minDisp, numDisp, blockSz);
+// P1 and P2 control the smoothness of the disparity map.
+// The ratio P2 = 4*P1 follows Hirschmuller's recommendation.
+sgbm_->setP1(8  * 3 * blockSz * blockSz);
+sgbm_->setP2(32 * 3 * blockSz * blockSz);
+sgbm_->setUniquenessRatio(cfg.uniquenessRatio);
+sgbm_->setMode(StereoSGBM::MODE_SGBM_3WAY);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Step 5: WLS postprocessing (lines 101--108)}]
+// Right matcher computes R->L disparity required by WLS
+rightMatcher_->compute(grayR, grayL, disp16R);
+Mat filtered;
+// WLS fills holes and smooths edges (guided filter principle)
+wlsFilter_->filter(disp16L, result.leftRect, filtered, disp16R);
+filtered.convertTo(result.disparity, CV_32F, 1.0 / 16.0);
+\end{lstlisting}
+
+\begin{critbox}[frametitle={SGBM vs BM --- why we use SGBM}]
+BM (Block Matching) searches only horizontally. SGBM (Semi-Global Block Matching)
+adds smoothness constraints in 8 directions (semi-global), producing denser maps
+with fewer holes, especially in low-texture regions.
+\end{critbox}
+
+\begin{lstlisting}[caption={Step 6: Invalid-zone fill (horizontal propagation)}]
+// SGBM leaves ~numDisp black columns on the left with no valid data.
+// The first valid value in each row is propagated leftward.
+for (int y = 0; y < result.disparity.rows; ++y) {
+    float* row = result.disparity.ptr<float>(y);
+    float fill = 0.0f;
+    for (int x = 0; x < result.disparity.cols; ++x) {
+        if (row[x] > 0.5f) { fill = row[x]; break; }
+    }
+    if (fill <= 0.0f) continue;
+    for (int x = 0; x < result.disparity.cols; ++x) {
+        if (row[x] > 0.5f) break;
+        row[x] = fill;
+    }
+}
+\end{lstlisting}
+
+\noindent\textbf{Modification note:} to fill \textbf{vertically} (column by column) instead,
+make the outer loop iterate over \texttt{x} and the inner over \texttt{y}, switching from
+\texttt{ptr<float>(y)[x]} (fast row-major access) to \texttt{at<float>(y,x)} (random access).
+
+% =============================================================================
+\section{Criterion 3 --- Distance Precision \& Stability (20\%)}
+% =============================================================================
+
+\subsection*{What the rubric requires}
+Correct reprojection of the 3D matrix, Z coordinate in real units (cm/mm),
+stable reading with a 1D Kalman Filter, fluctuation $\leq \pm 3\,\text{cm}$ in a static scene.
+
+\subsection*{3D Reprojection}
+
+\begin{lstlisting}[caption={Step 7: reprojectImageTo3D (line 131)}]
+// Q is the reprojection matrix computed during stereo calibration.
+// It converts the disparity map into a 3D point cloud (X, Y, Z in meters).
+reprojectImageTo3D(result.disparity, result.points3D, calib_->Q, true);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Robust measurement: median over a 10x10 px region}]
+float StereoProcessor::medianDepthAt(const Mat& points3D, int cx, int cy, int r) {
+    // Collect all valid Z values in a square of radius r
+    for (int y = y0; y <= y1; ++y)
+        for (int x = x0; x <= x1; ++x) {
+            const float z = points3D.at<Vec3f>(y, x)[2];
+            // Keep only finite values in the plausible range (5 cm - 10 m)
+            if (std::isfinite(z) && z > 0.05f && z < 10.0f)
+                zVals.push_back(z);
+        }
+    // nth_element: O(n) - equivalent to median without sorting the entire vector
+    std::nth_element(zVals.begin(), zVals.begin() + mid, zVals.end());
+    return zVals[mid];
+}
+\end{lstlisting}
+
+\subsection*{1D Kalman Filter --- \texttt{KalmanDepth.cpp}}
+
+\begin{lstlisting}[caption={Scalar Kalman filter (the 3 key equations)}]
+double KalmanDepth::update(double measurement) {
+    // PREDICTION: uncertainty grows over time (process noise q)
+    covariance_ += q_;
+
+    // KALMAN GAIN: balances trust in prediction vs. new measurement
+    const double gain = covariance_ / (covariance_ + r_);
+
+    // UPDATE: corrects the estimate with the new measurement
+    estimate_   += gain * (measurement - estimate_);
+    covariance_  = (1.0 - gain) * covariance_;
+    return estimate_;
+}
+\end{lstlisting}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Variable} & \textbf{Meaning} & \textbf{Effect if increased} \\
+\midrule
+\texttt{q\_}   & Process noise     & Kalman trusts measurement more (fast response) \\
+\texttt{r\_}   & Measurement noise & Kalman trusts prediction more (smoother output) \\
+\texttt{gain}  & Kalman gain       & 0 = ignore measurement; 1 = ignore prediction \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Key \textbf{C} resets the central Kalman filter (\texttt{kalmanCenter\_.reset()}).
+Key \textbf{R} starts/stops CSV logging with columns: \texttt{frame, elapsed\_ms, z\_raw\_cm, z\_kalman\_cm, fps}.
+
+\subsection*{Validation at 30 / 60 / 90 cm}
+\texttt{python/collect\_measurements.py} automates data collection:
+50 samples per distance, computes mean, standard deviation, and absolute error,
+and verifies that \texttt{std} $\leq 3.0$ cm (rubric requirement).
+
+% =============================================================================
+\section{Criterion 4 --- Augmented Reality Effect (15\%)}
+% =============================================================================
+
+\subsection*{What the rubric requires}
+An original computational visual effect overlaid on the rectified color transmission.
+The effect must react \textbf{dynamically} to the measured distance (scale, position,
+or behavior). Exclusive design unique to the group.
+
+\subsection*{Effect description --- \texttt{ARRenderer.cpp}}
+
+The \textbf{Energy Ball} effect has three stacked layers, all modulated by $Z$:
+
+\subsubsection*{Layer 0: Depth-driven pixel distortion field (\texttt{applyDepthField})}
+
+\begin{lstlisting}[caption={Depth-reactive wave distortion}]
+// Strength inversely proportional to Z^3: drops off very fast with distance
+const float z3       = zFocusMeters * zFocusMeters * zFocusMeters;
+const float strength = std::clamp(0.6f / std::max(z3, 1e-4f), 0.0f, 70.0f);
+const float speed    = 10.0f / std::max(0.15f, zFocusMeters);
+
+// Sinusoidal pixel displacement for foreground pixels only
+const float ox = strength * std::sin(y * 0.10f + t * speed);
+const float oy = strength * std::cos(x * 0.10f + t * speed * 0.75f);
+dst[x] = src.at<cv::Vec3b>(sy, sx);  // reads displaced pixel
+\end{lstlisting}
+
+\noindent\textbf{Dynamic behavior:} at 20 cm the wave displaces up to 70 px at high speed.
+At 80 cm the perturbation drops to 2 px. Beyond 80 cm there is no effect (\texttt{strength < 2.0f}).
+
+\subsubsection*{Layer 1: Radial color tint (\texttt{applyPixelVignette})}
+
+\begin{lstlisting}[caption={Tint color reactive to distance}]
+// Tint color changes with distance (in BGR):
+if (depthCm < 40.0f)       { tB=20;  tG=60;  tR=255; } // RED  (danger: very close)
+else if (depthCm < 80.0f)  { tB=20;  tG=220; tR=80;  } // GREEN (optimal zone)
+else                        { tB=240; tG=160; tR=20;  } // CYAN  (far)
+\end{lstlisting}
+
+\subsubsection*{Layer 2: Pulsing aura with orbital sparks (\texttt{drawEnergyAura})}
+
+\begin{lstlisting}[caption={Pulse and spark speed reactive to Z}]
+// Soft 3 Hz pulse -- radius oscillates slightly
+const float pulse  = 0.90f + 0.10f * std::sin(phase * 3.0);
+// Closer -> more sparks and faster orbit
+const float proximity  = std::clamp(20.0f / depthCm, 0.15f, 1.0f);
+const int   sparkCount = 6 + int(8.0f * proximity);   // 6 to 14 sparks
+const double spinSpeed = 1.0 + 2.0 * proximity;        // up to 3x faster
+\end{lstlisting}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Distance} & \textbf{Color} & \textbf{Behavior} \\
+\midrule
+$<$ 40 cm (close)   & Red   & Strong wave, 14 fast sparks, intense tint \\
+40--80 cm (optimal) & Green & Moderate wave, 10 sparks, soft tint \\
+$>$ 80 cm (far)     & Cyan  & Minimal wave, 6 slow sparks \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% =============================================================================
+\section{Criterion 5 --- Individual Oral Defense (20\%)}
+% =============================================================================
+
+\subsection*{Likely questions and key answers}
+
+\textbf{1. What is matrix Q and what does \texttt{reprojectImageTo3D} do?}
+
+$Q$ is the $4\times4$ reprojection matrix computed by \texttt{cv::stereoRectify}.
+It transforms disparity $d$ into 3D coordinates:
+\[
+\begin{bmatrix} X \\ Y \\ Z \\ W \end{bmatrix} =
+Q \cdot \begin{bmatrix} u \\ v \\ d \\ 1 \end{bmatrix}
+\quad\Rightarrow\quad Z = \frac{f \cdot B}{d}
+\]
+where $f$ is the focal length and $B$ is the baseline (distance between cameras).
+\texttt{reprojectImageTo3D} applies this operation to every pixel of the disparity map,
+producing the 3D point cloud stored in \texttt{result.points3D}.
+
+\vspace{6pt}
+\textbf{2. How do threads work in the system?}
+
+Each \texttt{HttpCameraSource} launches a \texttt{std::thread} (producer thread) that
+continuously downloads JPEG frames via libcurl. The main thread (consumer) calls
+\texttt{read()}, which grabs the latest frame under a \texttt{mutex}. This
+producer-consumer architecture ensures that HTTP downloads do not block SGBM processing.
+
+\vspace{6pt}
+\textbf{3. How are SGBM parameters tuned?}
+
+\begin{itemize}[leftmargin=*,noitemsep]
+  \item \texttt{numDisparities}: search range in pixels (must be a multiple of 16). Larger = sees farther but slower.
+  \item \texttt{blockSize}: comparison block size (odd, $\geq 3$). Larger = smoother but loses detail.
+  \item \texttt{P1, P2}: smoothness penalties. $P2 = 4 \cdot P1$ follows Hirschmuller's guideline. High $P2$ = smooth plane transitions.
+  \item \texttt{uniquenessRatio}: rejects a match if the second-best candidate is within X\% of the best.
+  \item \texttt{speckleWindowSize / Range}: removes isolated blobs (salt-and-pepper noise).
+\end{itemize}
+
+All parameters are adjustable \textbf{in real time} via the trackbar control window --- no restart needed.
+
+\vspace{6pt}
+\textbf{4. What does key C do?}
+
+It resets the central Kalman filter (\texttt{kalmanCenter\_.reset()}), setting
+\texttt{initialized\_ = false}. The next measurement is accepted directly as the new
+initial estimate, discarding all previous history. Useful when the target object
+changes position abruptly.
+
+\vspace{6pt}
+\textbf{5. Why use the median instead of the mean to measure Z?}
+
+The median is robust to outliers. Pixels at object edges have erroneous disparities
+due to occlusion. The mean would be contaminated by those values; the median ignores
+them as long as more than 50\% of pixels in the region are valid.
+
+\vspace{6pt}
+\textbf{6. What is the difference between Z raw and Z Kalman in the HUD?}
+
+\texttt{Z raw} is the direct output of \texttt{medianDepthAt} (may vary frame to frame).
+\texttt{Z Kalman} is the filtered estimate: more stable, with a slight lag, but meets
+the $\leq \pm 3\,\text{cm}$ fluctuation requirement of the rubric.
+
+\vspace{6pt}
+\textbf{7. Why does the AR effect apply only to the foreground?}
+
+In \texttt{applyDepthField} there is a threshold: \texttt{const float fgLimit = zFocusMeters + 0.50f}.
+Only pixels with $Z < \text{focus} + 0.5\,\text{m}$ receive the distortion.
+Background pixels (wall, floor) are untouched, giving the visual impression that
+the effect wraps only around the measured object.
+
+\vspace{6pt}
+\textbf{8. If asked to change Step 6 fill direction from horizontal to vertical, what changes?}
+
+The outer loop changes from \texttt{for y} to \texttt{for x}, and the inner from
+\texttt{for x} to \texttt{for y}. Access changes from \texttt{ptr<float>(y)[x]}
+(efficient row-major) to \texttt{at<float>(y,x)} (random access, required when
+\texttt{x} is the outer axis).
+
+% =============================================================================
+\section*{File-to-criterion reference}
+% =============================================================================
+
+\begin{center}
+\begin{tabular}{p{4.2cm}p{5.5cm}p{4.5cm}}
+\toprule
+\textbf{File} & \textbf{Responsibility} & \textbf{Criterion} \\
+\midrule
+\texttt{ESP32\_CAM\_Stereo.ino}  & Firmware: AEC/AGC/AWB, XCLK, HTTP endpoints & 1 \\
+\texttt{CameraSource.cpp/.hpp}   & Producer thread, mutex, non-blocking read     & 1 \\
+\texttt{StereoCalibration.cpp}   & Loads \texttt{stereo\_calib.yml}, rectification maps, Q & 2, 3 \\
+\texttt{StereoProcessor.cpp}     & remap $\to$ CLAHE $\to$ SGBM $\to$ WLS $\to$ reproject & 2, 3 \\
+\texttt{KalmanDepth.cpp}         & Scalar 1D Kalman filter                       & 3 \\
+\texttt{ARRenderer.cpp}          & Distortion field, radial tint, pulsing aura   & 4 \\
+\texttt{DisplayManager.cpp}      & HUD, trackbars, windows                       & 1, 2, 3 \\
+\texttt{StereoController.cpp}    & Main MVC loop, CSV logger, key handling       & all \\
+\texttt{collect\_measurements.py}& 30/60/90 cm validation, CSV results           & 3 \\
+\texttt{find\_cameras.py}        & Network scan to locate ESP32-CAMs             & 1 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}
