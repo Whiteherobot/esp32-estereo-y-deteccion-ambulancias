@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  cpp:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq libopencv-dev libopencv-contrib-dev libcurl4-openssl-dev
+      - name: Parte I (visión estéreo)
+        run: cmake -S cpp -B build-estereo -DCMAKE_BUILD_TYPE=Release && cmake --build build-estereo -j4
+      - name: Parte II (detector de ambulancias)
+        run: cmake -S parte2_final/cpp_detector -B build-detector -DCMAKE_BUILD_TYPE=Release && cmake --build build-detector -j4
+
+  python:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Sintaxis de los scripts
+        run: python -m compileall -q python parte2_final/training parte2_final/telegram_bot
