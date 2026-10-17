@@ -1,0 +1,119 @@
+========================================================================
+ VIDEO-BLOG SCRIPT (English) — Final Integrative Project, Part II
+ Specific Vehicle Detection: MSP Ambulance (HOG+SVM -> YOLOv8-seg -> Telegram)
+ Authors: Michael Lata · Jordy Romero — Computer Vision G8, UPS
+ Target length: 6–8 minutes. [B-ROLL] = what to show on screen.
+========================================================================
+
+------------------------------------------------------------------------
+0. HOOK  (0:00 – 0:25)
+------------------------------------------------------------------------
+[B-ROLL: street footage, an ambulance passing]
+"Every second counts for an ambulance. What if a camera could recognize
+one automatically — and instantly send an alert with the vehicle already
+segmented? In this project we built exactly that, for a specific target:
+an ambulance of Ecuador's Ministry of Public Health."
+
+------------------------------------------------------------------------
+1. THE PROBLEM & THE RULE  (0:25 – 1:15)
+------------------------------------------------------------------------
+[B-ROLL: the ambulance photo — white Iveco Daily, red/blue Battenberg,
+ star of life, "AMBULANCIA"]
+"Our goal: detect this exact vehicle, frame by frame, in video.
+The key constraint of the assignment is a separation of techniques:
+ - the real-time detector must be CLASSICAL — no deep learning;
+ - deep learning is allowed ONLY in a downstream service.
+So we designed a two-stage system: a classical TRIGGER in C++, and a
+modern SEGMENTATION service in Python."
+
+------------------------------------------------------------------------
+2. ARCHITECTURE OVERVIEW  (1:15 – 2:10)
+------------------------------------------------------------------------
+[B-ROLL: figs/arquitectura.png — walk left to right]
+"On the left, a C++17 + OpenCV desktop app, built with an MVC architecture.
+It reads video, classifies each frame with HOG + SVM, and shows live metrics:
+RAM, FPS and confidence. When it confirms an ambulance, it sends the key
+frame plus a five-second clip over an HTTP multipart request.
+On the right, a Python FastAPI service runs YOLOv8 instance segmentation on
+both the image and the clip, and a Telegram bot delivers THREE things to the
+chat: the original frame with an alert, the segmented image, and the
+segmented video."
+
+------------------------------------------------------------------------
+3. THE DATASET  (2:10 – 3:00)
+------------------------------------------------------------------------
+[B-ROLL: grid of positive/negative windows; augmentation examples]
+"For the classical detector we built a dataset from field footage:
+80 photos and 13 videos of ambulances, and 7 traffic videos with no
+ambulance. Extracting frames gave us 976 positive and 304 negative
+raw images, normalized to a 128x96 detection window with letterbox padding.
+We then used Albumentations — flips, brightness, blur, noise, shadows — to
+reach a balanced set of 4000 positives and 4000 negatives, split 70/15/15
+with no leakage."
+
+------------------------------------------------------------------------
+4. THE CLASSICAL DETECTOR  (3:00 – 4:00)
+------------------------------------------------------------------------
+[B-ROLL: HOG visualization; a diagram of w·f + b]
+"Each window becomes a 5940-dimensional Histogram-of-Oriented-Gradients
+descriptor. We train a LINEAR SVM on top. One practical detail: OpenCV's
+SVM solver would not converge in a reasonable time on this high-dimensional
+data, so we trained with liblinear — same linear model, seconds instead of
+minutes. We also ran hard-negative mining: the detector scans real traffic
+frames, every hit there is a false positive, and we feed those back as hard
+negatives. That single step added over two thousand hard negatives and
+pushed specificity above 98 percent."
+
+------------------------------------------------------------------------
+5. THE HONEST FINDING  (4:00 – 5:00)   <-- the story beat
+------------------------------------------------------------------------
+[B-ROLL: detectMultiScale firing boxes everywhere on both ambulance and
+ traffic; then the clean frame-level score plot]
+"Here's the interesting part. The natural way to LOCALIZE with HOG is a
+sliding window — detectMultiScale. But it fired ten to thirteen boxes per
+frame on BOTH ambulances and traffic, at every threshold. It simply doesn't
+discriminate, because it was trained on whole letterboxed scenes, not on
+native-scale patches.
+Instead of hiding that, we redesigned around it: we use the SAME model as a
+FRAME-LEVEL trigger — classify the whole frame, score = w·f + b, fire when
+the score passes a threshold for several consecutive frames. Localization
+becomes YOLO's job. And this matches the data exactly."
+
+------------------------------------------------------------------------
+6. RESULTS  (5:00 – 6:00)
+------------------------------------------------------------------------
+[B-ROLL: figs/cm_hog_svm.png and pr_hog_svm.png; the metrics table]
+"On the held-out test set the classifier reaches 97.6% accuracy,
+98.2% precision, 97% recall, 98.2% specificity — an F1 of 0.976.
+And as a deployed frame-level trigger on REAL frames: 98.6% recall on
+ambulances at ZERO percent false positives on traffic. The two score
+distributions are cleanly separated."
+[B-ROLL: live app — HUD with RAM/FPS/confidence; a trigger firing; Telegram
+ chat receiving the original, the segmented image, and the segmented video]
+"And here is the full loop in action: the C++ app detects, sends the alert,
+and the Telegram bot returns the ambulance segmented by YOLO."
+
+------------------------------------------------------------------------
+7. CLOSE  (6:00 – 6:40)
+------------------------------------------------------------------------
+[B-ROLL: architecture diagram again; repo URL on screen]
+"To sum up: a classical HOG+SVM trigger in C++, an HTTP integration carrying
+image AND video, YOLOv8 segmentation, and a Telegram bot — an end-to-end
+pipeline that respects the classical-versus-deep-learning boundary.
+The biggest lesson wasn't the accuracy number; it was diagnosing WHY
+localization failed and redesigning honestly around it.
+Code is in the repository below. Thanks for watching."
+
+========================================================================
+ SHOTS CHECKLIST (to record before editing)
+------------------------------------------------------------------------
+ [ ] Ambulance reference photo (close-up of livery details)
+ [ ] figs/arquitectura.png (screen capture, zoom pans)
+ [ ] Dataset montage: positive windows, negative windows, augmentations
+ [ ] detectMultiScale failure clip (boxes everywhere)   <-- optional but strong
+ [ ] Frame-level score plot / separation
+ [ ] figs/cm_hog_svm.png + figs/pr_hog_svm.png
+ [ ] Live C++ app: HUD (RAM/FPS/confidence) + a real trigger
+ [ ] Telegram chat receiving the 3 deliverables
+ [ ] Repository URL end card
+========================================================================

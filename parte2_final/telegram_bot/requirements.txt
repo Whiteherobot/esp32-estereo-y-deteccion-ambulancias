@@ -1,0 +1,9 @@
+# Servicio Python: FastAPI + YOLO-seg + Telegram (Parte II)
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9      # subida de archivos (imagen + video) desde el C++
+python-dotenv>=1.0
+ultralytics>=8.2             # YOLOv8/YOLOv11 segmentación de instancias
+opencv-python>=4.9
+requests>=2.31              # llamadas a la Bot API de Telegram
+psutil>=5.9                 # métricas de RAM

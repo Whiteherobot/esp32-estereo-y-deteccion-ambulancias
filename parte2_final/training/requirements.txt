@@ -1,0 +1,12 @@
+# Pipeline de entrenamiento HOG + SVM (Parte II)
+# Usar con el venv cv-ai311 (Python 3.11)
+#
+# IMPORTANTE: fijar OpenCV a la serie 4.x. albumentations arrastra
+# opencv-python-headless (serie 5.0), que SOMBREA a opencv-python y en la que
+# cv2.HOGDescriptor fue ELIMINADO -> rompe 03_extract_hog.py.
+# Instalar así:  pip install -r requirements.txt --no-binary :none:
+#   luego, si entró el headless:  pip uninstall -y opencv-python-headless
+opencv-python==4.13.0.92
+numpy>=1.26,<3
+albumentations>=1.4,<2.1
+matplotlib>=3.8

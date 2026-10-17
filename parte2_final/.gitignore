@@ -1,0 +1,38 @@
+# Datos e imágenes (pesados, no versionar)
+dataset/raw/**
+dataset/augmented/**
+dataset/train/**
+dataset/val/**
+dataset/test/**
+!**/.gitkeep
+
+# Modelos y features generados
+models/*.npy
+models/*.xml
+models/*.yml
+
+# Pesos YOLO descargados
+telegram_bot/*.pt
+
+# Secretos
+telegram_bot/.env
+
+# Build C++
+cpp_detector/build/
+
+# Python
+__pycache__/
+*.pyc
+
+# LaTeX (auxiliares; se conservan .tex/.bib/.pdf/figuras)
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+
+# Videos de demostración: usar uno propio (el de pruebas era de un tercero)
+demo/*.mp4
