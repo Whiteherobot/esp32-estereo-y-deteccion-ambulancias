@@ -1,0 +1,21 @@
+# Compilados
+build/
+cpp/build/
+arduino/**/build/
+__pycache__/
+*.pyc
+
+# Claves de la red WiFi del firmware
+arduino/**/secretos.h
+
+# Auxiliares de LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+.venv/
+.vscode/
