@@ -4,8 +4,10 @@
 #include "soc/soc.h"           
 #include "soc/rtc_cntl_reg.h"  
 
-const char* ssid = "Michi";
-const char* password = "michiawa";
+// La red WiFi va en secretos.h (copiar secretos.ejemplo.h); no se versiona.
+#include "secretos.h"
+const char* ssid = WIFI_SSID;
+const char* password = WIFI_PASSWORD;
 
 WebServer server(80);
 

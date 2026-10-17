@@ -3,8 +3,10 @@
 
 #include <WiFi.h>
 
-const char* ssid = "Michi";
-const char* password = "michiawa";
+// La red WiFi va en secretos.h (copiar secretos.ejemplo.h); no se versiona.
+#include "secretos.h"
+const char* ssid = WIFI_SSID;
+const char* password = WIFI_PASSWORD;
 
 void setup() {
   Serial.begin(115200);

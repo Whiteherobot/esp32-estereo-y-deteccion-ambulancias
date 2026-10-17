@@ -39,8 +39,10 @@
 
 // ====== CONFIG WIFI ======
 // Cambiar CAM_ID según la cámara que se flashea: 'L' para izquierda, 'R' para derecha.
-const char* ssid      = "Michi";
-const char* password  = "michiawa";
+// La red WiFi va en secretos.h (copiar secretos.ejemplo.h); no se versiona.
+#include "secretos.h"
+const char* ssid = WIFI_SSID;
+const char* password = WIFI_PASSWORD;
 const char  CAM_ID    = 'L';   // <-- cambiar a 'R' al flashear la cámara derecha
 
 WebServer server(80);
